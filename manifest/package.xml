@@ -5,6 +5,19 @@
         <name>PermissionSet</name>
     </types>
     <types>
+        <members>Job_Application__c</members>
+        <members>Job_Application_Contact__c</members>
+        <members>Activity</members>
+        <members>Task</members>
+        <members>Event</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Job_Application__c</members>
+        <members>Job_Application_Contact__c</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
         <members>Job_Application__c-Job Application Layout</members>
         <name>Layout</name>
     </types>

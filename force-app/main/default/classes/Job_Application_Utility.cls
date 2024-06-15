@@ -1,4 +1,23 @@
+/*
+*********************************************************
+Apex Class Name    : Job_Application_Utility
+Created Date       : July 2024
+@description       : This utility class handles logic needed for Job_Application__c automations
+@author            : Steven Trumble
+*********************************************************
+*/
+
 public with sharing class Job_Application_Utility {
+
+/*
+*********************************************************
+@Method Name    : createJobApplicationTasks
+@author         : Steven Trumble
+@description    : method to is used to create Tasks related to Job Applications depending on the Status__c
+@param          : List of Job_Applicaiton__c records from trigger.new
+@return         : New Tasks
+********************************************************
+*/
     public static void createJobApplicationTasks(List<Job_Application__c> jobApplications) {
         //want different actions based on the different stages saved, applying, applied, interviewing, negotiating, accepted
         

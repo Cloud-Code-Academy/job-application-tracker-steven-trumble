@@ -440,4 +440,21 @@ private class Job_Application_Utility_Test {
                                 AND Subject = 'Review your notes and reflect on areas of improvement'];
         System.assertEquals(1, taskSubject,'Expected to find a related task with subject of \'Review your notes and reflect on areas of improvement\' ' );
     }
+
+    @isTest
+    static void createJobApplicationBulk(){
+        final Integer JOB_APPLICATIONS_TO_CREATE = 300;
+        final Integer EXPECTED_TASKS_PER_JOB_APPLICATION = 3;
+
+        Test.startTest();
+            List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(JOB_APPLICATIONS_TO_CREATE,'Saved');
+        Test.stopTest();
+        System.debug('Number of Job Applications Created: ' + jobApplications.size());
+
+        // expecting 2 tasks created
+        Integer taskCount = [SELECT COUNT()
+                            FROM Task];
+        
+        System.assertEquals(JOB_APPLICATIONS_TO_CREATE * EXPECTED_TASKS_PER_JOB_APPLICATION , taskCount, 'Expected 900 tasks to be created');
+    }
 }

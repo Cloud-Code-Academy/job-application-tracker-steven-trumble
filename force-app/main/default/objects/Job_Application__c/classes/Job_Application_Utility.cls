@@ -50,10 +50,11 @@ public with sharing class Job_Application_Utility {
                     tasksToInsert.add(createTask(jobApplication.Id, 'Select a Status for this Job Application', 0));
                 }
             }
-        if (!tasksToInsert.isEmpty()){
+        }
+       if (!tasksToInsert.isEmpty()){
             insert tasksToInsert;
-        }
-        }
+            }
+        
     }
     //helper method to create tasks
     private static Task createTask(Id jobAppId, String subject, Integer daysUntilDue){

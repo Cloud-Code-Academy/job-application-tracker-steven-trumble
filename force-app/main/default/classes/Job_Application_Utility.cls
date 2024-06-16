@@ -85,4 +85,64 @@ public with sharing class Job_Application_Utility {
         newTask.ActivityDate = system.today()+daysUntilDue;
         return newTask;
     }
+    /*
+*********************************************************
+@Method Name    : setPrimaryContact
+@author         : Steven Trumble
+@description    : set the primary contact on the job application if the primary contact is null 
+                and there is at least one related contact. Use the first contact available in the 
+                contact-related list or the first contact related to the Company(Account).
+@param          : List of Job_Applicaiton__c records from trigger.new
+@return         : contactId
+********************************************************
+*/
+    public static void setPrimaryContact(List<Job_Application__c> jobApplications){
+        system.debug('Start setPrimaryContact');
+        for(Job_Application__c jobApplication : jobApplications){
+            if(jobApplication.Primary_Contact__c == null){
+                //find contact in Job_Application_Contact__c
+                Id contactId = jobApplicationContactContactId(jobApplication.Id);
+                if(contactId != null){
+                jobApplication.Primary_Contact__c = contactId;
+                }
+            }
+
+            if(jobApplication.Primary_Contact__c == null && jobApplication.Company_Name__c != null){
+                //find contact from Account(company_name__c) if primary_contact__c still null
+                Id contactId = jobApplicationCompanyContact(jobApplication.Company_Name__c);
+                if(contactId != null){
+                    jobApplication.Primary_Contact__c = contactId;
+                }
+            }
+        }
+    }
+    //helper method to  find contact in Job_Application_Contact__c
+    private static Id jobApplicationContactContactId(Id jobAppId){
+        system.debug('Start jobApplicationContactContactId');
+            List<Job_Application_Contact__c> jobAppContacts = [SELECT Contact__c
+                                                        FROM Job_Application_Contact__c
+                                                        WHERE Job_Application__c = :jobAppId
+                                                        ORDER BY CreatedDate asc
+                                                        LIMIT 1];
+            
+            if(!jobAppContacts.isEmpty()){
+                Id contactId = jobAppContacts[0].Contact__c;
+                return contactId;
+            }
+            return null;
+    }
+        //helper method to  find contact related to Account (Company_Name__c)
+        private static Id jobApplicationCompanyContact(Id accountId){
+            system.debug('Start jobApplicationCompanyContact');
+                List<Contact> contacts = [SELECT Id
+                                            FROM Contact
+                                            WHERE AccountId = :accountId
+                                            ORDER BY CreatedDate asc
+                                            LIMIT 1];
+                if(!contacts.isEmpty()){
+                    Id contactId = contacts[0].Id;
+                    return contactId;
+                }                       
+                return null;
+        }
 }

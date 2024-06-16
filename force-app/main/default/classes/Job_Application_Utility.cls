@@ -92,57 +92,74 @@ public with sharing class Job_Application_Utility {
 @description    : set the primary contact on the job application if the primary contact is null 
                 and there is at least one related contact. Use the first contact available in the 
                 contact-related list or the first contact related to the Company(Account).
-@param          : List of Job_Applicaiton__c records from trigger.new
+@param  List<Job_Application__c> jobApplications: List of Job_Applicaiton__c records from Trigger.new
 @return         : contactId
 ********************************************************
 */
     public static void setPrimaryContact(List<Job_Application__c> jobApplications){
-        system.debug('Start setPrimaryContact');
+        
+        Set<Id> jobAppIds = new Set<Id>();
+        Set<Id> accountIds = new Set<Id>();
+
+        //collect job Applications and Account ids
         for(Job_Application__c jobApplication : jobApplications){
             if(jobApplication.Primary_Contact__c == null){
-                //find contact in Job_Application_Contact__c
-                Id contactId = jobApplicationContactContactId(jobApplication.Id);
-                if(contactId != null){
-                jobApplication.Primary_Contact__c = contactId;
+                jobAppIds.add(jobApplication.Id);
+                
+                if(jobApplication.Company_Name__c != null){
+                    accountIds.add(jobApplication.Company_Name__c);
                 }
             }
+        }
+        // Map to store the first created Job_Application_Contact__c for each Job_Application__c
+        Map<Id, Id> jobAppContactMap = new Map<Id, Id>();
+        // Query related Job_Application_Contact__c records
+        List<Job_Application_Contact__c> jobAppContacts = [
+            SELECT Job_Application__c, Contact__c
+            FROM Job_Application_Contact__c
+            WHERE Job_Application__c IN :jobAppIds
+            ORDER BY CreatedDate ASC
+        ];
+    
+        // Populate the map with the first created Job Application Contact for each Job_Application__c
+        for (Job_Application_Contact__c jobAppContact : jobAppContacts) {
+            if (!jobAppContactMap.containsKey(jobAppContact.Job_Application__c)) {
+                jobAppContactMap.put(jobAppContact.Job_Application__c, jobAppContact.Contact__c);
+            }
+        }
 
-            if(jobApplication.Primary_Contact__c == null && jobApplication.Company_Name__c != null){
-                //find contact from Account(company_name__c) if primary_contact__c still null
-                Id contactId = jobApplicationCompanyContact(jobApplication.Company_Name__c);
-                if(contactId != null){
+        // Map to store the first created contact for each Account
+        Map<Id, Id> accountContactMap = new Map<Id, Id>();
+        if (!accountIds.isEmpty()) {
+            // Query related contacts for the accounts
+            List<Contact> contacts = [
+                SELECT Id, AccountId
+                FROM Contact
+                WHERE AccountId IN :accountIds
+                ORDER BY CreatedDate ASC
+            ];
+            // Populate the map with the first created contact for each Account
+            for (Contact contact : contacts) {
+                if (!accountContactMap.containsKey(contact.AccountId)) {
+                    accountContactMap.put(contact.AccountId, contact.Id);
+                }
+            }
+        }
+        // Set Primary_Contact__c for each job application if it is currently null
+        for (Job_Application__c jobApplication : jobApplications) {
+            if (jobApplication.Primary_Contact__c == null) {
+                // Check if there's a related Job_Application_Contact__c record
+                Id contactId = jobAppContactMap.get(jobApplication.Id);
+                if (contactId != null) {
                     jobApplication.Primary_Contact__c = contactId;
+                } else if (jobApplication.Company_Name__c != null) {
+                    // If no Job_Application_Contact__c record found, check related contacts for the account
+                    contactId = accountContactMap.get(jobApplication.Company_Name__c);
+                    if (contactId != null) {
+                        jobApplication.Primary_Contact__c = contactId;
+                    }
                 }
             }
         }
     }
-    //helper method to  find contact in Job_Application_Contact__c
-    private static Id jobApplicationContactContactId(Id jobAppId){
-        system.debug('Start jobApplicationContactContactId');
-            List<Job_Application_Contact__c> jobAppContacts = [SELECT Contact__c
-                                                        FROM Job_Application_Contact__c
-                                                        WHERE Job_Application__c = :jobAppId
-                                                        ORDER BY CreatedDate asc
-                                                        LIMIT 1];
-            
-            if(!jobAppContacts.isEmpty()){
-                Id contactId = jobAppContacts[0].Contact__c;
-                return contactId;
-            }
-            return null;
-    }
-        //helper method to  find contact related to Account (Company_Name__c)
-        private static Id jobApplicationCompanyContact(Id accountId){
-            system.debug('Start jobApplicationCompanyContact');
-                List<Contact> contacts = [SELECT Id
-                                            FROM Contact
-                                            WHERE AccountId = :accountId
-                                            ORDER BY CreatedDate asc
-                                            LIMIT 1];
-                if(!contacts.isEmpty()){
-                    Id contactId = contacts[0].Id;
-                    return contactId;
-                }                       
-                return null;
-        }
 }

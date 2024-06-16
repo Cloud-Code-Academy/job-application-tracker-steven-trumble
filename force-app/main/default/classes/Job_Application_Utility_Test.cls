@@ -3,7 +3,13 @@ This class contains unit tests for validating behvaioiur of logic in Job_Applica
 */
 @IsTest
 private class Job_Application_Utility_Test {
-
+    /*
+*********************************************************
+@Method Tested    : createJobApplicationTasks
+@author           : Steven Trumble
+@description      : test various scenarios that could occur for createJobApplicationTasks()
+********************************************************
+*/
     @isTest
     static void createJobApplicationNullStatus(){
         
@@ -457,4 +463,188 @@ private class Job_Application_Utility_Test {
         
         System.assertEquals(JOB_APPLICATIONS_TO_CREATE * EXPECTED_TASKS_PER_JOB_APPLICATION , taskCount, 'Expected 900 tasks to be created');
     }
+
+    /*
+*********************************************************
+@Method Tested    : setPrimaryContact
+@author           : Steven Trumble
+@description      : test various scenarios that could occur for setPrimaryContact()
+                    JAC = Job_Application_Contact__c
+********************************************************
+*/
+    @isTest
+    static void testJobApplicationPrimaryContactExists(){
+        Job_Application__c jobApp = TestDataFactory.createJobApplications(1)[0];
+        Contact existingContact = TestDataFactory.getContact(jobApp.Company_Name__c, 'Test', 'LastName', true);
+        jobApp.Primary_Contact__c = existingContact.Id;
+        update jobApp;
+        
+        // Call the utility method to set primary contact
+        Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+
+        // Retrieve the job application again to verify Primary_Contact__c
+        jobApp = [SELECT Id, Primary_Contact__c FROM Job_Application__c WHERE Id = :jobApp.Id];
+
+        // Assert that Primary_Contact__c remains unchanged
+        System.assertEquals(existingContact.Id, jobApp.Primary_Contact__c, 'Primary contact should not be overwritten');
+        System.assertNotEquals(existingContact.Id, null, 'Primary Contact should not be null');
+    }
+    
+    @isTest
+    static void testJobApplicationPrimaryContactNullJACExists() {
+        // Create a job application
+        Job_Application__c jobApp = TestDataFactory.createJobApplications(1)[0];
+        System.debug('Job Application: ' + jobApp);
+    
+        // Create a contact associated through Job_Application_Contact__c
+        Contact contact = TestDataFactory.getContact(null, 'Test', 'LastName', true);
+        System.debug('Contact: ' + contact);
+    
+        Job_Application_Contact__c jobAppContact = TestDataFactory.createJobApplicationContact(contact.Id, jobApp.Id);
+        System.debug('Job Application Contact: ' + jobAppContact);
+    
+        // Call the utility method to set primary contact
+        Test.startTest();
+            Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+            update jobApp;
+        Test.stopTest();
+    
+        // Retrieve the job application again to verify Primary_Contact__c
+        jobApp = [SELECT Id, Primary_Contact__c FROM Job_Application__c WHERE Id = :jobApp.Id];
+        System.debug('Updated Job Application: ' + jobApp);
+    
+        // Assert that Primary_Contact__c is set to the contact from Job_Application_Contact__c
+        System.assertEquals(contact.Id, jobApp.Primary_Contact__c, 'Primary contact should be set from Job_Application_Contact__c');
+    }
+
+    @isTest
+    static void testPrimaryContactNullNoJACCompanyContactExists() {
+        // Create a company (Account) with related contacts
+        Account companyAccount = TestDataFactory.getAccount('Test Company', true);
+        Contact companyContact = TestDataFactory.getContact(companyAccount.Id, 'Test', 'LastName', true);
+
+        // Create a job application with Company_Name__c set
+        Job_Application__c jobApp = new Job_Application__c(Company_Name__c = companyAccount.Id);
+        insert jobApp;
+
+        // Call the utility method to set primary contact
+        Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+
+        // Retrieve the job application again to verify Primary_Contact__c
+        jobApp = [
+            SELECT Id, Primary_Contact__c 
+            FROM Job_Application__c 
+            WHERE Id = :jobApp.Id
+            ];
+
+        // Query for the first contact related to the Company_Name__c
+        List<Contact> companyContacts = [
+            SELECT Id 
+            FROM Contact 
+            WHERE AccountId = :companyAccount.Id 
+            ORDER BY CreatedDate ASC 
+            LIMIT 1
+            ];
+
+        // Assert that Primary_Contact__c is set to the first contact's Id
+        System.assertEquals(companyContacts[0].Id, jobApp.Primary_Contact__c, 'Primary contact should be set from Company_Name__c contacts');
+    }
+
+    @isTest
+    static void testPrimaryContactNullNoJACNoCompanyContacts() {
+        // Create a company (Account) without any related contacts
+        Account companyAccount = TestDataFactory.getAccount('Test Company', true);
+
+        // Create a job application with Company_Name__c set
+        Job_Application__c jobApp = new Job_Application__c(Company_Name__c = companyAccount.Id);
+        insert jobApp;
+
+        // Call the utility method to set primary contact
+        Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+
+        // Retrieve the job application again to verify Primary_Contact__c
+        jobApp = [SELECT Id, Primary_Contact__c FROM Job_Application__c WHERE Id = :jobApp.Id];
+
+        // Assert that Primary_Contact__c remains null
+        System.assertEquals(null, jobApp.Primary_Contact__c, 'Primary contact should remain null when no contacts are associated');
+    }
+
+    @isTest
+    static void testPrimaryContactNullNoJACCompanyNull() {
+        // Create a job application with Company_Name__c set to null
+        Job_Application__c jobApp = new Job_Application__c();
+        insert jobApp;
+
+        // Call the utility method to set primary contact
+        Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+
+        // Retrieve the job application again to verify Primary_Contact__c
+        jobApp = [SELECT Id, Primary_Contact__c FROM Job_Application__c WHERE Id = :jobApp.Id];
+
+        // Assert that Primary_Contact__c remains null
+        System.assertEquals(null, jobApp.Primary_Contact__c, 'Primary contact should remain null when Company_Name__c is null and no existing Job_Application_Contact__c records');
+    }
+
+    @isTest
+    static void testBulkSetPrimaryContact() {
+        // Create a list of job applications with different scenarios
+        List<Job_Application__c> jobApps = new List<Job_Application__c>();
+
+        // Scenario 1: Primary_Contact__c is null, Associated Job_Application_Contact__c record exists
+        Job_Application__c jobApp1 = TestDataFactory.createJobApplications(1)[0];
+        Contact existingContact1 = TestDataFactory.getContact(null, 'Test1', 'LastName1', true);
+        Job_Application_Contact__c jobAppContact1 = TestDataFactory.createJobApplicationContact(existingContact1.Id,jobApp1.Id);
+        jobApp1.Primary_Contact__c = null; // Ensure Primary_Contact__c is null
+        jobApps.add(jobApp1);
+
+        // Scenario 2: Primary_Contact__c is null, No associated Job_Application_Contact__c, Company_Name__c has contacts
+        Job_Application__c jobApp2 = TestDataFactory.createJobApplications(1)[0];
+        Account account2 = TestDataFactory.getAccount('Test Company2', true); // Create an Account with contacts
+        Contact existingContact2 = TestDataFactory.getContact(account2.Id, 'Test2', 'LastName2', true);
+        jobApp2.Primary_Contact__c = null; // Ensure Primary_Contact__c is null
+        jobApp2.Company_Name__c = account2.Id;
+        jobApps.add(jobApp2);
+
+        // Scenario 3: Primary_Contact__c is null, No associated Job_Application_Contact__c, Company_Name__c has no contacts
+        Job_Application__c jobApp3 = TestDataFactory.createJobApplications(1)[0];
+        jobApp3.Company_Name__c = TestDataFactory.getAccount('Test Company3', true).Id; // Company_Name__c without contacts
+        jobApp3.Primary_Contact__c = null; // Ensure Primary_Contact__c is null
+        jobApps.add(jobApp3);
+
+        // Scenario 4: Primary_Contact__c is null, No associated Job_Application_Contact__c, Company_Name__c is null
+        Job_Application__c jobApp4 = TestDataFactory.createJobApplications(1)[0];
+        jobApp4.Company_Name__c = null; // Company_Name__c is null
+        jobApp4.Primary_Contact__c = null; // Ensure Primary_Contact__c is null
+        jobApps.add(jobApp4);
+
+        // Call the utility method to set primary contacts in bulk
+        Test.startTest();
+        Job_Application_Utility.setPrimaryContact(jobApps);
+        update jobApps;
+        Test.stopTest();
+
+        // Retrieve the job applications again to verify Primary_Contact__c
+        Map<Id, Job_Application__c> jobAppMap = new Map<Id, Job_Application__c>([
+            SELECT Id, Primary_Contact__c 
+            FROM Job_Application__c 
+            WHERE Id IN :jobApps
+        ]);
+
+        // Perform assertions
+
+        // Scenario 1: Ensure Primary_Contact__c is set to the existing contact from Job_Application_Contact__c
+        System.assertEquals(existingContact1.Id, jobAppMap.get(jobApp1.Id).Primary_Contact__c, 'Scenario 1: Primary contact should be set from Job_Application_Contact__c');
+
+        // Scenario 2: Ensure Primary_Contact__c is set to the existing contact from Company_Name__c
+        System.assertEquals(existingContact2.Id, jobAppMap.get(jobApp2.Id).Primary_Contact__c, 'Scenario 2: Primary contact should be set from contacts related to Company_Name__c');
+
+        // Scenario 3: Ensure Primary_Contact__c remains null as Company_Name__c has no contacts
+        System.assertEquals(null, jobAppMap.get(jobApp3.Id).Primary_Contact__c, 'Scenario 3: Primary contact should remain null when Company_Name__c has no contacts and no Job_Application_Contact__c records');
+
+        // Scenario 4: Ensure Primary_Contact__c remains null as Company_Name__c is null
+        System.assertEquals(null, jobAppMap.get(jobApp4.Id).Primary_Contact__c, 'Scenario 4: Primary contact should remain null when Company_Name__c is null and no Job_Application_Contact__c records');
+    }        
 }
+    
+
+    //bulk processsing with mixed scenarios in list

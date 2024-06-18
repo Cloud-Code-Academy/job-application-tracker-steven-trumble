@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Social_Security__c</fullName>
-    <defaultValue>6.20</defaultValue>
+    <defaultValue>0.062</defaultValue>
     <description>https://www.ssa.gov/oact/cola/cbb.html</description>
     <externalId>false</externalId>
     <inlineHelpText>6.2% as of 2024</inlineHelpText>

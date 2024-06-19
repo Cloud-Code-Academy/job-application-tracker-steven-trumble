@@ -28,7 +28,18 @@ public with sharing class Job_Application_Trigger_Handler extends TriggerHandler
 
     public override void afterUpdate(){
         if(!isBypassed('afterUpdate')){
-            Job_Application_Utility.createJobApplicationTasks(trigger.new);
+            //only run when Status__c is updated
+            List<Job_Application__c> jobAppsChangedStatus = new List<Job_Application__c>();
+            for (Id recordId : trigger.newMap.keyset()){
+                Job_Application__c newRecord = (Job_Application__c)trigger.newMap.get(recordId);
+                Job_Application__c oldRecord = (Job_Application__c)trigger.oldMap.get(recordId);
+                if(newRecord.Status__c != oldRecord.Status__c){
+                    jobAppsChangedStatus.add(newRecord);
+                }
+            }
+            if(!jobAppsChangedStatus.isEmpty()){
+                Job_Application_Utility.createJobApplicationTasks(trigger.new);
+            }
         }
     }
 }

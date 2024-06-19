@@ -17,6 +17,7 @@ public with sharing class Job_Application_Trigger_Handler extends TriggerHandler
     public override void beforeUpdate(){
         if(!isBypassed('beforeUpdate')){
             Job_Application_Utility.setPrimaryContact(trigger.new);
+            SalaryCalculator.calculateTaxesAndTakehHomePay(trigger.new);
         }
     }
     

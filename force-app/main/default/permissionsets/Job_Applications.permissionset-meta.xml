@@ -67,7 +67,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Job_Application__c.Medicare_Witholding__c</field>
+        <field>Job_Application__c.Medicare_Withholding_Rate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Job_Application__c.Medicare_Withholding__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -98,6 +103,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Job_Application__c.Salary__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Job_Application__c.Social_Security_Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

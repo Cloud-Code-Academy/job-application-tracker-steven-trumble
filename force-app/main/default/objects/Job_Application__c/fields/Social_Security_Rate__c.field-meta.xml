@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Medicare_Witholding__c</fullName>
-    <defaultValue>0.0145</defaultValue>
-    <description>https://www.irs.gov/taxtopics/tc751</description>
+    <fullName>Social_Security_Rate__c</fullName>
+    <defaultValue>0.062</defaultValue>
+    <description>https://www.ssa.gov/oact/cola/cbb.html</description>
     <externalId>false</externalId>
-    <inlineHelpText>Yearly Medicre Withholdings liability</inlineHelpText>
-    <label>Medicare Witholding</label>
+    <inlineHelpText>6.2% as of 2024</inlineHelpText>
+    <label>Social Security Rate</label>
     <precision>5</precision>
     <required>false</required>
     <scale>2</scale>

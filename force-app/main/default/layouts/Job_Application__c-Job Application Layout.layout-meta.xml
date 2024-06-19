@@ -83,11 +83,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Social_Security_Rate__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Social_Security__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Medicare_Witholding__c</field>
+                <field>Medicare_Withholding_Rate__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Medicare_Withholding__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

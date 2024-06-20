@@ -1,5 +1,5 @@
 public with sharing class SalaryCalculator {
-    public static void calculateTaxesAndTakehHomePay(List<Job_Application__c> jobAplications) {
+    public static void calculateTaxesAndTakeHomePay(List<Job_Application__c> jobAplications) {
         final Decimal  SOCIAL_SECURITY_RATE = 0.062;
         final Decimal  MEDICARE_WITHHOLDING_RATE = 0.0145;
         

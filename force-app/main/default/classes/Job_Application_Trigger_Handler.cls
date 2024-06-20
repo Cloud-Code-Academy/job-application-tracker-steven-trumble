@@ -11,13 +11,34 @@ public with sharing class Job_Application_Trigger_Handler extends TriggerHandler
     public override void beforeInsert(){
         if(!isBypassed('beforeInsert')){
             Job_Application_Utility.setPrimaryContact(trigger.new);
+
+             //only run when salary provided
+             List<Job_Application__c> jobAppsWithSalary = new List<Job_Application__c>();
+             for (Job_Application__c jobApp : (List<Job_Application__c>)trigger.new){
+                 if(jobApp.Salary__c != null){
+                     jobAppsWithSalary.add(jobApp);
+                 }
+             }
+             if(!jobAppsWithSalary.isEmpty()){
+                 SalaryCalculator.calculateTaxesAndTakeHomePay(jobAppsWithSalary);
+             }
         }
     }
 
     public override void beforeUpdate(){
         if(!isBypassed('beforeUpdate')){
             Job_Application_Utility.setPrimaryContact(trigger.new);
-            SalaryCalculator.calculateTaxesAndTakehHomePay(trigger.new);
+            
+            //only run when salary provided
+            List<Job_Application__c> jobAppsWithSalary = new List<Job_Application__c>();
+            for (Job_Application__c jobApp : (List<Job_Application__c>)trigger.new){
+                if(jobApp.Salary__c != null){
+                    jobAppsWithSalary.add(jobApp);
+                }
+            }
+            if(!jobAppsWithSalary.isEmpty()){
+                SalaryCalculator.calculateTaxesAndTakeHomePay(jobAppsWithSalary);
+            }
         }
     }
     

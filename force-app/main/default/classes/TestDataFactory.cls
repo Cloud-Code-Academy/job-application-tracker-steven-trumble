@@ -9,6 +9,14 @@ Created Date       : July 2024
 @isTest
 public class TestDataFactory {
 
+    //constant of Filing Statuses so can use to generate random choice 
+    private static final List<String> FILING_STATUSES = new List<String>{
+        'Single',
+        'Married Filing Jointly',
+        'Married Filing Separately',
+        'Head of Household'
+    };
+
 /*
 *********************************************************
 @Method Name    : createJobApplicationsWithStatus
@@ -150,5 +158,38 @@ public class TestDataFactory {
         }
         insert jobApplications;
         return jobApplications;
+    }
+    
+    public static Job_Application__c createJobApplicationSalary(Decimal salary, String filingStatus) {
+        Job_Application__c jobApp = new Job_Application__c(
+            Salary__c = salary,
+            Filing_Status__c = filingStatus
+        );
+        
+        // set default values for social security and medicare rates
+        if (jobApp.Social_Security_Rate__c == null) {
+            jobApp.Social_Security_Rate__c = 0.062;  
+        }
+        if (jobApp.Medicare_Withholding_Rate__c == null) {
+            jobApp.Medicare_Withholding_Rate__c = 0.0145;
+        }        
+        return jobApp;
+    }
+        
+    public static List<Job_Application__c> createMultipleJobApplicationSalaries(Integer numApplications) {
+        List<Job_Application__c> jobApps = new List<Job_Application__c>();
+        
+        for (Integer i = 0; i < numApplications; i++) {
+            Decimal salary = 5000 + (i * 10000);  // Varying salaries
+            String filingStatus = getRandomFilingStatus();
+            jobApps.add(createJobApplicationSalary(salary, filingStatus));
+        }
+        
+        return jobApps;
+    }
+    
+    private static String getRandomFilingStatus() {
+        Integer randomIndex = Math.mod(Math.abs((Integer)Math.floor(Math.random() * 10)), FILING_STATUSES.size());
+        return FILING_STATUSES[randomIndex];
     }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Filing_Status__c</fullName>
+    <defaultValue>&quot;Single&quot;</defaultValue>
+    <description>How the taxes will be filed. Different tax brackets based on filing status</description>
+    <externalId>false</externalId>
+    <inlineHelpText>How the taxes will be filed. Different tax brackets based on filing status</inlineHelpText>
+    <label>Filing Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Single</fullName>
+                <default>false</default>
+                <label>Single</label>
+            </value>
+            <value>
+                <fullName>Married Filing Jointly</fullName>
+                <default>false</default>
+                <label>Married Filing Jointly</label>
+            </value>
+            <value>
+                <fullName>Married Filing Separately</fullName>
+                <default>false</default>
+                <label>Married Filing Separately</label>
+            </value>
+            <value>
+                <fullName>Head of Household</fullName>
+                <default>false</default>
+                <label>Head of Household</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

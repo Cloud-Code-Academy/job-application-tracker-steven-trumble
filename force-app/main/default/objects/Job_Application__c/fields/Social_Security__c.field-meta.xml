@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Social_Security__c</fullName>
+    <description>Calculated amount of Social Security to pay based on Salary and Social Security Rate</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Calculated amount of Social Security to pay based on Salary and Social Security Rate</inlineHelpText>
+    <label>Social Security</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

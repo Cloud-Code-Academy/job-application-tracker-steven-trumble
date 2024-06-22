@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>Job_Applications</members>
-        <name>PermissionSet</name>
-    </types>
-    <types>
-        <members>Job_Application__c</members>
+        <members>Event</members>
+        <members>Activity</members>
         <name>CustomObject</name>
     </types>
     <types>
-        <members>Job_Application__c-Job Application Layout</members>
+        <members>Event-Event Layout</members>
         <name>Layout</name>
     </types>
     <version>58.0</version>

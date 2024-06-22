@@ -4,22 +4,14 @@ public with sharing class SalaryCalculator {
         final Decimal  MEDICARE_WITHHOLDING_RATE = 0.0145;
         
         for(Job_Application__c jobApplication : jobAplications){
+            if (jobApplication.Salary__c == null) {
+                // Skip calculations for null salaries
+                continue;
+            }
             Decimal salary = jobApplication.Salary__c;
-
-            Decimal socialSecurityRate;
-            if(jobApplication.Social_Security_Rate__c == null){
-                socialSecurityRate = SOCIAL_SECURITY_RATE;
-            } else {
-                socialSecurityRate = jobApplication.Social_Security_Rate__c;
-            }
-
-
-            Decimal medicareWithholdingRate; 
-            if(jobApplication.Medicare_Withholding_Rate__c == null){
-                medicareWithholdingRate = MEDICARE_WITHHOLDING_RATE;
-            } else {
-                medicareWithholdingRate = jobApplication.Medicare_Withholding_Rate__c;
-            }
+            Decimal socialSecurityRate = jobApplication.Social_Security_Rate__c != null ? jobApplication.Social_Security_Rate__c :  SOCIAL_SECURITY_RATE;
+            
+            Decimal medicareWithholdingRate = jobApplication.Medicare_Withholding_Rate__c != null ? jobApplication.Medicare_Withholding_Rate__c : MEDICARE_WITHHOLDING_RATE;
 
             Decimal socialSecurityWithholding = salary * (socialSecurityRate / 100);
             Decimal medicareWithholding = salary * (medicareWithholdingRate / 100);

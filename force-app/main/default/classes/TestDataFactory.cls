@@ -168,10 +168,10 @@ public class TestDataFactory {
         
         // set default values for social security and medicare rates
         if (jobApp.Social_Security_Rate__c == null) {
-            jobApp.Social_Security_Rate__c = 0.062;  
+            jobApp.Social_Security_Rate__c = 6.2;  
         }
         if (jobApp.Medicare_Withholding_Rate__c == null) {
-            jobApp.Medicare_Withholding_Rate__c = 0.0145;
+            jobApp.Medicare_Withholding_Rate__c = 1.45;
         }        
         return jobApp;
     }
@@ -180,7 +180,7 @@ public class TestDataFactory {
         List<Job_Application__c> jobApps = new List<Job_Application__c>();
         
         for (Integer i = 0; i < numApplications; i++) {
-            Decimal salary = 5000 + (i * 10000);  // Varying salaries
+            Decimal salary = 50000 + (i * 10000);  // Varying salaries
             String filingStatus = getRandomFilingStatus();
             jobApps.add(createJobApplicationSalary(salary, filingStatus));
         }

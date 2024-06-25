@@ -1,5 +1,6 @@
 /*
 This class contains unit tests for validating behvaioiur of logic in Job_Application_Utility class
+NEED TO UPDATE SO TESTING THE ACTUAL FUCKING UNIT INSIDE THE TESTBLOCK AND NOT DOING A WHOEL FUCKING INSERT
 */
 @IsTest
 private class Job_Application_Utility_Test {

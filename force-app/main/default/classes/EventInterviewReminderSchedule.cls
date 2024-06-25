@@ -14,11 +14,11 @@
  * - Sends an error email if exceptions occur during execution.
  *
  * Usage:
- * To schedule this job to run daily at 9am:
- * System.schedule('Event_Interview_Reminder_Schedule', '0 0 9 * * ?', new Event_Interview_Reminder_Schedule());
+ * To schedule this job to run daily at 9am execute anonymous apex:
+ * System.schedule('EventInterviewReminderSchedule', '0 0 9 * * ?', new EventInterviewReminderSchedule());
  */
 
-public with sharing class Event_Interview_Reminder_Schedule implements Schedulable{
+public with sharing class EventInterviewReminderSchedule implements Schedulable{
         /**
      * @description Executes the scheduled job. Queries for tomorrow's interviews and sends reminders.
      * @param sc The SchedulableContext

@@ -147,4 +147,56 @@ public class TestDataFactory {
         Integer randomIndex = Math.mod(Math.abs((Integer)Math.floor(Math.random() * 10)), FILING_STATUSES.size());
         return FILING_STATUSES[randomIndex];
     }
+
+    public static List<Event> createEvents(
+        Integer numEvents, 
+        String subject, 
+        String interviewType, 
+        String interviewFormat, 
+        Date activityDate, 
+        Id whoId, 
+        Id whatId, 
+        Id ownerId)
+        {
+        List<Event> events = new List<Event>();
+
+        for(Integer i = 0; i < numEvents; i++){
+            Event event = new Event(
+                Subject = subject,
+                Interview_Type__c = interviewType,
+                Interview_Format__c = interviewFormat,
+                ActivityDate = activityDate,
+                WhoId = whoId,
+                WhatId = whatId,
+                OwnerId = ownerId
+            );
+            events.add(event);
+        }
+        return events;
+    }
+
+    public static User testUserDataCreation() {
+        User user;
+  
+        // Perform User creation in a separate context
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            Profile p = [SELECT Id FROM Profile WHERE Name = 'System Administrator'];
+    
+            // Create a new user
+            user = new User(
+                Alias = 'shrek',
+                Email = 'strumble91@gmail.com',
+                EmailEncodingKey = 'UTF-8',
+                LastName = 'Testing',
+                LanguageLocaleKey = 'en_US',
+                LocaleSidKey = 'en_US',
+                ProfileId = p.Id,
+                TimeZoneSidKey = 'America/Los_Angeles',
+                UserName = 'trumbletest@testorg.com.au'
+            );   
+            // Insert the user
+            insert user;
+        }   
+        return user;
+    }
 }

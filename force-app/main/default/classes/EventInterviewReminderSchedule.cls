@@ -22,8 +22,13 @@ public with sharing class EventInterviewReminderSchedule implements Schedulable{
         /**
      * @description Executes the scheduled job. Queries for tomorrow's interviews and sends reminders.
      * @param sc The SchedulableContext
+     * @param throwTestException - boolen to throw test exception to test catch block
+     * @param lastExceptionMessage - string to test catch block for any excpetions
      */
-   public void execute(SchedulableContext sc){
+    @TestVisible private static Boolean throwTestException = false;
+    @TestVisible private static String lastExceptionMessage;
+
+    public void execute(SchedulableContext sc){
         Date tomorrow = Date.today().addDays(1);
         
         List<Event> interviewsTomorrow = [
@@ -84,8 +89,13 @@ public with sharing class EventInterviewReminderSchedule implements Schedulable{
         }
         if(!emailMessages.isEmpty()){
             try{
+                if(Test.isRunningTest() && throwTestException){
+                    throw new TestException('Forced exception for testing.');
+                }
+                System.debug('Email invocations before sending: ' + Limits.getEmailInvocations());
                 System.debug('Attempting to send ' + emailMessages.size() + ' emails');
                 Messaging.SendEmailResult[] results = Messaging.sendEmail(emailMessages);
+                System.debug('Email invocations after sending: ' + Limits.getEmailInvocations());
                 for(Messaging.SendEmailResult result : results){
                     if(result.isSuccess()){
                         System.debug('Email sent successfully');
@@ -94,10 +104,14 @@ public with sharing class EventInterviewReminderSchedule implements Schedulable{
                     }
                 }
             } catch (Exception e){
-                System.debug('Error sending emails: ' + e.getMessage());
+                lastExceptionMessage = e.getMessage();
+                System.debug('Error sending emails: ' + lastExceptionMessage);
             }
         } else {
             System.debug('No email messages to send');
         }
-    }   
+    }
+    
+    //inner exception class for testing
+    public class TestException extends Exception{}
 }

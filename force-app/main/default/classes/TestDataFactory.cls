@@ -153,7 +153,9 @@ public class TestDataFactory {
         String subject, 
         String interviewType, 
         String interviewFormat, 
-        Date activityDate, 
+        Date activityDate,
+        Datetime  startDateTime,
+        Integer durationInMinutes,
         Id whoId, 
         Id whatId, 
         Id ownerId)
@@ -161,11 +163,17 @@ public class TestDataFactory {
         List<Event> events = new List<Event>();
 
         for(Integer i = 0; i < numEvents; i++){
+            Datetime eventStartDateTime = startDateTime.addMinutes(i * (durationInMinutes + 30)); // Add 30 minutes buffer between events
+            Datetime eventEndDateTime = eventStartDateTime.addMinutes(durationInMinutes);
+
             Event event = new Event(
                 Subject = subject,
                 Interview_Type__c = interviewType,
                 Interview_Format__c = interviewFormat,
                 ActivityDate = activityDate,
+                StartDateTime = eventStartDateTime,
+                DurationInMinutes = durationInMinutes,
+                EndDateTime = eventEndDateTime,
                 WhoId = whoId,
                 WhatId = whatId,
                 OwnerId = ownerId

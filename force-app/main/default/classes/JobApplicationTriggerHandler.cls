@@ -1,13 +1,13 @@
 /*
 *********************************************************
-Apex Class Name    : Job_Application_Trigger_Handler
+Apex Class Name    : JobApplicationTriggerHandler
 Created Date       : July 2024
 @description       : This trigger handler calls various methods in Job_Application_Utility based on the running context
 @author            : Steven Trumble
 *********************************************************
 */
 
-public with sharing class Job_Application_Trigger_Handler extends TriggerHandler{
+public with sharing class JobApplicationTriggerHandler extends TriggerHandler{
     public override void beforeInsert(){
         if(!isBypassed('beforeInsert')){
             Job_Application_Utility.setPrimaryContact(trigger.new);

@@ -36,7 +36,7 @@ private class JobApplicationUtility_Test {
     static void updateJobApplicationNullStatus(){
         Test.startTest();
         //bypass afterInsert trigger
-        Job_Application_Trigger_Handler.bypass('afterInsert');
+        JobApplicationTriggerHandler.bypass('afterInsert');
         //insert with non null status
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,'Saved');
         //check no tasks were created
@@ -91,7 +91,7 @@ private class JobApplicationUtility_Test {
     static void updateJobApplicationSavedStatus(){
         Test.startTest();
         //bypass afterInsert trigger
-        Job_Application_Trigger_Handler.bypass('afterInsert');
+        JobApplicationTriggerHandler.bypass('afterInsert');
         //insert with non saved status
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,null);
         //check no tasks were created
@@ -146,7 +146,7 @@ private class JobApplicationUtility_Test {
     static void updateJobApplicationApplyingStatus(){
         Test.startTest();
         //bypass afterInsert trigger
-        Job_Application_Trigger_Handler.bypass('afterInsert');
+        JobApplicationTriggerHandler.bypass('afterInsert');
         //insert with non Applying status
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,null);
         //check no tasks were created
@@ -200,7 +200,7 @@ private class JobApplicationUtility_Test {
     static void updateJobApplicationAppliedStatus(){
         Test.startTest();
         //bypass afterInsert trigger
-        Job_Application_Trigger_Handler.bypass('afterInsert');
+        JobApplicationTriggerHandler.bypass('afterInsert');
         //insert with non Applied status
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,null);
         //check no tasks were created
@@ -254,7 +254,7 @@ private class JobApplicationUtility_Test {
     static void updateJobApplicationInterviewingStatus(){
         Test.startTest();
         //bypass afterInsert trigger
-        Job_Application_Trigger_Handler.bypass('afterInsert');
+        JobApplicationTriggerHandler.bypass('afterInsert');
         //insert with non Interviewing status
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,null);
         //check no tasks were created
@@ -308,7 +308,7 @@ private class JobApplicationUtility_Test {
     static void updateJobApplicationNegotiatingStatus(){
         Test.startTest();
         //bypass afterInsert trigger
-        Job_Application_Trigger_Handler.bypass('afterInsert');
+        JobApplicationTriggerHandler.bypass('afterInsert');
         //insert with non Negotiating status
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,null);
         //check no tasks were created
@@ -364,7 +364,7 @@ private class JobApplicationUtility_Test {
                 
         Test.startTest();
         //bypass afterInsert trigger
-        Job_Application_Trigger_Handler.bypass('afterInsert');
+        JobApplicationTriggerHandler.bypass('afterInsert');
         //insert with non Accepted status
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,null);
         //check no tasks were created
@@ -419,7 +419,7 @@ private class JobApplicationUtility_Test {
                 
         Test.startTest();
         //bypass afterInsert trigger
-        Job_Application_Trigger_Handler.bypass('afterInsert');
+        JobApplicationTriggerHandler.bypass('afterInsert');
         //insert with non Closed status
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,null);
         //check no tasks were created

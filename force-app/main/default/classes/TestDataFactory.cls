@@ -9,7 +9,7 @@ Created Date       : July 2024
 @isTest
 public class TestDataFactory {
 
-    //constant of Filing Statuses so can use to generate random choice 
+    //constant of Filing Statuses so can use to generate random choice when needed
     private static final List<String> FILING_STATUSES = new List<String>{
         'Single',
         'Married Filing Jointly',
@@ -33,7 +33,6 @@ public class TestDataFactory {
             Job_Application__c jobApplication = new Job_Application__c(Status__c = status);
             jobApplications.add(jobApplication);
         }
-        insert jobApplications;
         return jobApplications;
     }
 
@@ -78,24 +77,6 @@ public class TestDataFactory {
         }
         return c;
     }
-       /*
-*********************************************************
-@Method Names    : generateAccountWithContacts
-@author         : Steven Trumble
-@description    : methods used to create an account with a specified number of related contacts
-@param Integer numContacts: number of contacts to create related to the account
-@return         : contacts
-********************************************************
-*/
-    public static void generateAccountWithContacts(Integer numContacts) {
-        Account a = getAccount('default account ltd', true);
-        List<Contact> contacts = new List<Contact>();
-        for(Integer i = 0; i < numContacts; i++) {
-            String contactName = 'contact' + i;
-            contacts.add(getContact(a.id, contactName, contactName, false));
-        }
-        insert contacts;
-    }
 /*
 *********************************************************
 @Method Name    : createJobApplications
@@ -133,32 +114,6 @@ public class TestDataFactory {
         insert jobApplicationContact;
         return jobApplicationContact;
     }
-
-/*
-*********************************************************
-@Method Name    : createJobApplicationWithAccountAndContacts
-@author         : Steven Trumble
-@description    : method to create Job Application(s) with related Account and Contacts
-@param Integer numJobApplications: number of job applications to create
-@param Integer numContacts: number of contacts per job application
-@return         : List of inserted Job Applications
-********************************************************
-*/    
-    public static List<Job_Application__c> createJobApplicationWithAccountAndContacts(Integer numJobApplications, Integer numContacts) {
-        List<Job_Application__c> jobApplications = new List<Job_Application__c>();
-        for (Integer i = 0; i < numJobApplications; i++){
-            Account account = getAccount('Account ' + i, true);
-            List<Contact> contacts = new List<Contact>();
-            for (Integer j = 0; j < numContacts; j++) {
-                contacts.add(getContact(account.Id, 'Contact' + j, 'Test', false));
-            }
-            insert contacts;
-            Job_Application__c jobApplication = new Job_Application__c(Company_Name__c = account.Id);
-            jobApplications.add(jobApplication);
-        }
-        insert jobApplications;
-        return jobApplications;
-    }
     
     public static Job_Application__c createJobApplicationSalary(Decimal salary, String filingStatus) {
         Job_Application__c jobApp = new Job_Application__c(
@@ -191,5 +146,65 @@ public class TestDataFactory {
     private static String getRandomFilingStatus() {
         Integer randomIndex = Math.mod(Math.abs((Integer)Math.floor(Math.random() * 10)), FILING_STATUSES.size());
         return FILING_STATUSES[randomIndex];
+    }
+
+    public static List<Event> createEvents(
+        Integer numEvents, 
+        String subject, 
+        String interviewType, 
+        String interviewFormat, 
+        Date activityDate,
+        Datetime  startDateTime,
+        Integer durationInMinutes,
+        Id whoId, 
+        Id whatId, 
+        Id ownerId)
+        {
+        List<Event> events = new List<Event>();
+
+        for(Integer i = 0; i < numEvents; i++){
+            Datetime eventStartDateTime = startDateTime.addMinutes(i * (durationInMinutes + 30)); // Add 30 minutes buffer between events
+            Datetime eventEndDateTime = eventStartDateTime.addMinutes(durationInMinutes);
+
+            Event event = new Event(
+                Subject = subject,
+                Interview_Type__c = interviewType,
+                Interview_Format__c = interviewFormat,
+                ActivityDate = activityDate,
+                StartDateTime = eventStartDateTime,
+                DurationInMinutes = durationInMinutes,
+                EndDateTime = eventEndDateTime,
+                WhoId = whoId,
+                WhatId = whatId,
+                OwnerId = ownerId
+            );
+            events.add(event);
+        }
+        return events;
+    }
+
+    public static User testUserDataCreation() {
+        User user;
+  
+        // Perform User creation in a separate context
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            Profile p = [SELECT Id FROM Profile WHERE Name = 'System Administrator'];
+    
+            // Create a new user
+            user = new User(
+                Alias = 'shrek',
+                Email = 'strumble91@gmail.com',
+                EmailEncodingKey = 'UTF-8',
+                LastName = 'Testing',
+                LanguageLocaleKey = 'en_US',
+                LocaleSidKey = 'en_US',
+                ProfileId = p.Id,
+                TimeZoneSidKey = 'America/Los_Angeles',
+                UserName = 'trumbletest@testorg.com.au'
+            );   
+            // Insert the user
+            insert user;
+        }   
+        return user;
     }
 }

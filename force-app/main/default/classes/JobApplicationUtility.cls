@@ -1,13 +1,13 @@
 /*
 *********************************************************
-Apex Class Name    : Job_Application_Utility
+Apex Class Name    : JobApplicationUtility
 Created Date       : July 2024
 @description       : This utility class handles logic needed for Job_Application__c automations
 @author            : Steven Trumble
 *********************************************************
 */
 
-public with sharing class Job_Application_Utility {
+public with sharing class JobApplicationUtility {
 
 /*
 *********************************************************

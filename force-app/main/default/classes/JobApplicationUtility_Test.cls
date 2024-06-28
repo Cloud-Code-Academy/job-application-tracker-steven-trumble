@@ -1,9 +1,9 @@
 /*
-This class contains unit tests for validating behvaioiur of logic in Job_Application_Utility class
+This class contains unit tests for validating behvaioiur of logic in JobApplicationUtility class
 NEED TO UPDATE SO TESTING THE ACTUAL FUCKING UNIT INSIDE THE TESTBLOCK AND NOT DOING A WHOEL FUCKING INSERT
 */
 @IsTest
-private class Job_Application_Utility_Test {
+private class JobApplicationUtility_Test {
     /*
 *********************************************************
 @Method Tested    : createJobApplicationTasks
@@ -481,7 +481,7 @@ private class Job_Application_Utility_Test {
         update jobApp;
         
         // Call the utility method to set primary contact
-        Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+        JobApplicationUtility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
 
         // Retrieve the job application again to verify Primary_Contact__c
         jobApp = [SELECT Id, Primary_Contact__c FROM Job_Application__c WHERE Id = :jobApp.Id];
@@ -506,7 +506,7 @@ private class Job_Application_Utility_Test {
     
         // Call the utility method to set primary contact
         Test.startTest();
-            Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+            JobApplicationUtility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
             update jobApp;
         Test.stopTest();
     
@@ -529,7 +529,7 @@ private class Job_Application_Utility_Test {
         insert jobApp;
 
         // Call the utility method to set primary contact
-        Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+        JobApplicationUtility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
 
         // Retrieve the job application again to verify Primary_Contact__c
         jobApp = [
@@ -561,7 +561,7 @@ private class Job_Application_Utility_Test {
         insert jobApp;
 
         // Call the utility method to set primary contact
-        Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+        JobApplicationUtility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
 
         // Retrieve the job application again to verify Primary_Contact__c
         jobApp = [SELECT Id, Primary_Contact__c FROM Job_Application__c WHERE Id = :jobApp.Id];
@@ -577,7 +577,7 @@ private class Job_Application_Utility_Test {
         insert jobApp;
 
         // Call the utility method to set primary contact
-        Job_Application_Utility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
+        JobApplicationUtility.setPrimaryContact(new List<Job_Application__c>{ jobApp });
 
         // Retrieve the job application again to verify Primary_Contact__c
         jobApp = [SELECT Id, Primary_Contact__c FROM Job_Application__c WHERE Id = :jobApp.Id];
@@ -620,7 +620,7 @@ private class Job_Application_Utility_Test {
 
         // Call the utility method to set primary contacts in bulk
         Test.startTest();
-        Job_Application_Utility.setPrimaryContact(jobApps);
+        JobApplicationUtility.setPrimaryContact(jobApps);
         update jobApps;
         Test.stopTest();
 

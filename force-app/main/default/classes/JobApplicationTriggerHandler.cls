@@ -1,16 +1,16 @@
 /*
 *********************************************************
-Apex Class Name    : Job_Application_Trigger_Handler
+Apex Class Name    : JobApplicationTriggerHandler
 Created Date       : July 2024
-@description       : This trigger handler calls various methods in Job_Application_Utility based on the running context
+@description       : This trigger handler calls various methods in JobApplicationUtility based on the running context
 @author            : Steven Trumble
 *********************************************************
 */
 
-public with sharing class Job_Application_Trigger_Handler extends TriggerHandler{
+public with sharing class JobApplicationTriggerHandler extends TriggerHandler{
     public override void beforeInsert(){
         if(!isBypassed('beforeInsert')){
-            Job_Application_Utility.setPrimaryContact(trigger.new);
+            JobApplicationUtility.setPrimaryContact(trigger.new);
 
              //only run when salary provided
              List<Job_Application__c> jobAppsWithSalary = new List<Job_Application__c>();
@@ -27,7 +27,7 @@ public with sharing class Job_Application_Trigger_Handler extends TriggerHandler
 
     public override void beforeUpdate(){
         if(!isBypassed('beforeUpdate')){
-            Job_Application_Utility.setPrimaryContact(trigger.new);
+            JobApplicationUtility.setPrimaryContact(trigger.new);
             
             //only run when salary provided
             List<Job_Application__c> jobAppsWithSalary = new List<Job_Application__c>();
@@ -44,7 +44,7 @@ public with sharing class Job_Application_Trigger_Handler extends TriggerHandler
     
     public override void afterInsert(){
         if(!isBypassed('afterInsert')){
-            Job_Application_Utility.createJobApplicationTasks(trigger.new);
+            JobApplicationUtility.createJobApplicationTasks(trigger.new);
         }
     }
 
@@ -60,7 +60,7 @@ public with sharing class Job_Application_Trigger_Handler extends TriggerHandler
                 }
             }
             if(!jobAppsChangedStatus.isEmpty()){
-                Job_Application_Utility.createJobApplicationTasks(trigger.new);
+                JobApplicationUtility.createJobApplicationTasks(trigger.new);
             }
         }
     }

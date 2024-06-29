@@ -426,4 +426,24 @@ private class SalaryCalculator_Test {
         System.assertEquals(null, jobApp.Monthly_Take_Home_Pay__c, 
             'Monthly Take Home Pay should be null for null salary');
     }
+
+    @isTest 
+    static void calculateTaxesAndTakeHomePay_throwException_Caught(){
+        SalaryCalculator.throwTestException = true;
+        // Create a job application with null salary
+        Job_Application__c jobApp = new Job_Application__c(
+            Salary__c = null,
+            Filing_Status__c = 'Single'
+        );
+        
+        Test.startTest();
+        SalaryCalculator.calculateTaxesAndTakeHomePay(new List<Job_Application__c>{jobApp});
+        Test.stopTest();
+        
+        // Assert that no calculations were performed
+        System.assertEquals(null, jobApp.Federal_Income_Tax__c, 
+            'Federal Income Tax should be null for null salary');
+        //Assert exception thrown
+        System.assertEquals('Forced exception for testing.', SalaryCalculator.lastExceptionMessage,'The expected exception was not caught');
+    }
 }

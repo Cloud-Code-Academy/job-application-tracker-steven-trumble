@@ -10,11 +10,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(800,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(6588,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -29,11 +29,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(1580,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(12272,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -48,11 +48,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(7407,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(43385,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -67,11 +67,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(17400,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(74950,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -86,11 +86,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(39656,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(135809,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -105,11 +105,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(59380,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(171494,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -124,11 +124,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(237832,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(454792,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -143,11 +143,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(2000,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(16470,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -161,11 +161,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(23615,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(114910,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -179,11 +179,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(79284,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(271646,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -198,11 +198,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(188914,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(457536,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -217,11 +217,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(600,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(4941,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -236,11 +236,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(11807,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(57455,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -255,11 +255,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(92630,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(225977,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -274,11 +274,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(93420,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(227034,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -293,11 +293,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(1606,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(13170,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -312,11 +312,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(20554,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(90266,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -331,11 +331,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
-        System.assertNotEquals(null, jobApp.Social_Security__c);
-        System.assertNotEquals(null, jobApp.Medicare_Withholding__c);
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
+        System.assertNotEquals(null, jobApp.Social_Security__c, 'Social Security should not be null.');
+        System.assertNotEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should not be null.');
+        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual take home pay should not be null.');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');
         
         System.assertEquals(58388,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(172486,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
@@ -352,14 +352,13 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert the results
-        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c);
+        System.assertNotEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should not be null.');
         System.assertEquals(6500, jobApp.Social_Security__c, 'Social Security calculation is incorrect');
         System.assertEquals(1600, jobApp.Medicare_Withholding__c, 'Medicare Withholding calculation is incorrect');
-        System.assertNotEquals(null, jobApp.Annual_Take_Home_Pay__c);
-        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c);
-        
-        System.assertEquals(17400,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(74500,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
+        System.assertNotEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly take home pay should not be null.');       
+        System.assertEquals(17400,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
+
     }
 
     @isTest
@@ -415,16 +414,11 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert that no calculations were performed
-        System.assertEquals(null, jobApp.Federal_Income_Tax__c, 
-            'Federal Income Tax should be null for null salary');
-        System.assertEquals(null, jobApp.Social_Security__c, 
-            'Social Security should be null for null salary');
-        System.assertEquals(null, jobApp.Medicare_Withholding__c, 
-            'Medicare Withholding should be null for null salary');
-        System.assertEquals(null, jobApp.Annual_Take_Home_Pay__c, 
-            'Annual Take Home Pay should be null for null salary');
-        System.assertEquals(null, jobApp.Monthly_Take_Home_Pay__c, 
-            'Monthly Take Home Pay should be null for null salary');
+        System.assertEquals(null, jobApp.Federal_Income_Tax__c,'Federal Income Tax should be null for null salary');
+        System.assertEquals(null, jobApp.Social_Security__c,'Social Security should be null for null salary');
+        System.assertEquals(null, jobApp.Medicare_Withholding__c, 'Medicare Withholding should be null for null salary');
+        System.assertEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual Take Home Pay should be null for null salary');
+        System.assertEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly Take Home Pay should be null for null salary');
     }
 
     @isTest 
@@ -441,8 +435,7 @@ private class SalaryCalculator_Test {
         Test.stopTest();
         
         // Assert that no calculations were performed
-        System.assertEquals(null, jobApp.Federal_Income_Tax__c, 
-            'Federal Income Tax should be null for null salary');
+        System.assertEquals(null, jobApp.Federal_Income_Tax__c, 'Federal Income Tax should be null for null salary');
         //Assert exception thrown
         System.assertEquals('Forced exception for testing.', SalaryCalculator.lastExceptionMessage,'The expected exception was not caught');
     }

@@ -86,13 +86,15 @@ public class TestDataFactory {
 @return         : List of inserted Job Applications
 ********************************************************
 */    
-    public static List<Job_Application__c> createJobApplications(Integer numJobApplications) {
+    public static List<Job_Application__c> createJobApplications(Integer numJobApplications, Boolean doInsert) {
         List<Job_Application__c> jobApplications = new List<Job_Application__c>();
         for (Integer i = 0; i < numJobApplications; i++){
             Job_Application__c jobApplication = new Job_Application__c();
             jobApplications.add(jobApplication);
         }
-        insert jobApplications;
+        if(doInsert){
+            insert jobApplications;
+        }
         return jobApplications;
     }
 /*

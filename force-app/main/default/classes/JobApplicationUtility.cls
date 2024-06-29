@@ -8,19 +8,21 @@ Created Date       : July 2024
 */
 
 public with sharing class JobApplicationUtility {
-
+    @TestVisible  private static Boolean throwTestException = false;
+    @TestVisible  private static String lastExceptionMessage;
 /*
 *********************************************************
 @Method Name    : createJobApplicationTasks
 @author         : Steven Trumble
 @description    : method to is used to create Tasks related to Job Applications depending on the Status__c
 @param          : List of Job_Applicaiton__c records from trigger.new
+@param throwTestException - boolen to throw test exception to test catch block
+@param lastExceptionMessage - string to test catch block for any excpetions
 @return         : New Tasks
 ********************************************************
 */
-    public static void createJobApplicationTasks(List<Job_Application__c> jobApplications) {
+    public static void createJobApplicationTasks(List<Job_Application__c> jobApplications) {       
         //want different actions based on the different stages saved, applying, applied, interviewing, negotiating, accepted
-        
         List<Task> tasksToInsert = new List<Task>();
 
         //loop through job applications
@@ -71,11 +73,22 @@ public with sharing class JobApplicationUtility {
             }
         }
        if (!tasksToInsert.isEmpty()){
-            insert tasksToInsert;
+            try{
+                if(Test.isRunningTest() && throwTestException){
+                    throw new TestException('Forced exception for testing.');
+                }
+                insert tasksToInsert;
+            } catch (DmlException dmlEx){
+                for (Integer i=0; i < dmlEx.getNumDml(); i++){
+                    System.debug('DML Operation ' + i + ' failed with status: ' + dmlEx.getDmlMessage(i));
+                }
+            } catch (Exception e){
+                lastExceptionMessage = e.getMessage();
+                System.debug(LoggingLevel.ERROR, 'Unexpected Error: ' + lastExceptionMessage);
             }
-        
+       }
     }
-    //helper method to create tasks
+    //helper method to return tasks that can be inserted
     private static Task createTask(Id jobAppId, String subject, Integer daysUntilDue){
         Task newTask = new Task();
         newTask.WhatId = jobAppId;
@@ -97,69 +110,83 @@ public with sharing class JobApplicationUtility {
 ********************************************************
 */
     public static void setPrimaryContact(List<Job_Application__c> jobApplications){
-        
-        Set<Id> jobAppIds = new Set<Id>();
-        Set<Id> accountIds = new Set<Id>();
+        try{
+            if(Test.isRunningTest() && throwTestException){
+            throw new TestException('Forced exception for testing.');
+            }
+            Set<Id> jobAppIds = new Set<Id>();
+            Set<Id> accountIds = new Set<Id>();
 
-        //collect job Applications and Account ids
-        for(Job_Application__c jobApplication : jobApplications){
-            if(jobApplication.Primary_Contact__c == null){
-                jobAppIds.add(jobApplication.Id);
-                
-                if(jobApplication.Company_Name__c != null){
-                    accountIds.add(jobApplication.Company_Name__c);
-                }
-            }
-        }
-        // Map to store the first created Job_Application_Contact__c for each Job_Application__c
-        Map<Id, Id> jobAppContactMap = new Map<Id, Id>();
-        // Query related Job_Application_Contact__c records
-        List<Job_Application_Contact__c> jobAppContacts = [
-            SELECT Job_Application__c, Contact__c
-            FROM Job_Application_Contact__c
-            WHERE Job_Application__c IN :jobAppIds
-            ORDER BY CreatedDate ASC
-        ];
-    
-        // Populate the map with the first created Job Application Contact for each Job_Application__c
-        for (Job_Application_Contact__c jobAppContact : jobAppContacts) {
-            if (!jobAppContactMap.containsKey(jobAppContact.Job_Application__c)) {
-                jobAppContactMap.put(jobAppContact.Job_Application__c, jobAppContact.Contact__c);
-            }
-        }
-
-        // Map to store the first created contact for each Account
-        Map<Id, Id> accountContactMap = new Map<Id, Id>();
-        if (!accountIds.isEmpty()) {
-            // Query related contacts for the accounts
-            List<Contact> contacts = [
-                SELECT Id, AccountId
-                FROM Contact
-                WHERE AccountId IN :accountIds
-                ORDER BY CreatedDate ASC
-            ];
-            // Populate the map with the first created contact for each Account
-            for (Contact contact : contacts) {
-                if (!accountContactMap.containsKey(contact.AccountId)) {
-                    accountContactMap.put(contact.AccountId, contact.Id);
-                }
-            }
-        }
-        // Set Primary_Contact__c for each job application if it is currently null
-        for (Job_Application__c jobApplication : jobApplications) {
-            if (jobApplication.Primary_Contact__c == null) {
-                // Check if there's a related Job_Application_Contact__c record
-                Id contactId = jobAppContactMap.get(jobApplication.Id);
-                if (contactId != null) {
-                    jobApplication.Primary_Contact__c = contactId;
-                } else if (jobApplication.Company_Name__c != null) {
-                    // If no Job_Application_Contact__c record found, check related contacts for the account
-                    contactId = accountContactMap.get(jobApplication.Company_Name__c);
-                    if (contactId != null) {
-                        jobApplication.Primary_Contact__c = contactId;
+            //collect job Applications and Account ids
+            for(Job_Application__c jobApplication : jobApplications){
+                if(jobApplication.Primary_Contact__c == null){
+                    jobAppIds.add(jobApplication.Id);
+                    
+                    if(jobApplication.Company_Name__c != null){
+                        accountIds.add(jobApplication.Company_Name__c);
                     }
                 }
             }
+            // Map to store the first created Job_Application_Contact__c for each Job_Application__c
+            Map<Id, Id> jobAppContactMap = new Map<Id, Id>();
+            // Query related Job_Application_Contact__c records
+            List<Job_Application_Contact__c> jobAppContacts = [
+                SELECT Job_Application__c, Contact__c
+                FROM Job_Application_Contact__c
+                WHERE Job_Application__c IN :jobAppIds
+                ORDER BY CreatedDate ASC
+            ];
+        
+            // Populate the map with the first created Job Application Contact for each Job_Application__c
+            for (Job_Application_Contact__c jobAppContact : jobAppContacts) {
+                if (!jobAppContactMap.containsKey(jobAppContact.Job_Application__c)) {
+                    jobAppContactMap.put(jobAppContact.Job_Application__c, jobAppContact.Contact__c);
+                }
+            }
+
+            // Map to store the first created contact for each Account
+            Map<Id, Id> accountContactMap = new Map<Id, Id>();
+            if (!accountIds.isEmpty()) {
+                // Query related contacts for the accounts
+                List<Contact> contacts = [
+                    SELECT Id, AccountId
+                    FROM Contact
+                    WHERE AccountId IN :accountIds
+                    ORDER BY CreatedDate ASC
+                ];
+                // Populate the map with the first created contact for each Account
+                for (Contact contact : contacts) {
+                    if (!accountContactMap.containsKey(contact.AccountId)) {
+                        accountContactMap.put(contact.AccountId, contact.Id);
+                    }
+                }
+            }
+            // Set Primary_Contact__c for each job application if it is currently null
+            for (Job_Application__c jobApplication : jobApplications) {
+                if (jobApplication.Primary_Contact__c == null) {
+                    // Check if there's a related Job_Application_Contact__c record
+                    Id contactId = jobAppContactMap.get(jobApplication.Id);
+                    if (contactId != null) {
+                        jobApplication.Primary_Contact__c = contactId;
+                    } else if (jobApplication.Company_Name__c != null) {
+                        // If no Job_Application_Contact__c record found, check related contacts for the account
+                        contactId = accountContactMap.get(jobApplication.Company_Name__c);
+                        if (contactId != null) {
+                            jobApplication.Primary_Contact__c = contactId;
+                        }
+                    }
+                }
+            }
+        } catch (QueryException qe) {
+            lastExceptionMessage = qe.getMessage();
+            System.debug(LoggingLevel.ERROR, 'Query Exception in setPrimaryContact: ' + lastExceptionMessage);
+        } catch (NullPointerException npe) {
+            lastExceptionMessage = npe.getMessage();
+            System.debug(LoggingLevel.ERROR, 'Null Pointer Exception in setPrimaryContact: ' + lastExceptionMessage);
+        } catch (Exception e) {
+            lastExceptionMessage = e.getMessage();
+            System.debug(LoggingLevel.ERROR, 'Unexpected Exception in setPrimaryContact: ' + lastExceptionMessage);
         }
     }
+    public class TestException extends Exception{}
 }

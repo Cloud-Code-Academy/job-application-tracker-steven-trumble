@@ -226,7 +226,7 @@ private class JobApplicationUtility_Test {
                             FROM Task 
                             WHERE WhatId = :jobApplications[0].Id];
         
-        System.assertEquals(0, taskCount, 'Expected only one task to be created');
+        System.assertEquals(0, taskCount, 'Expected only no task to be created');
         //check for exception message
         System.assertEquals('Forced exception for testing.', JobApplicationUtility.lastExceptionMessage,'The expected exception was not caught');
         

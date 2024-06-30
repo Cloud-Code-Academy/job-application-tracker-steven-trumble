@@ -2,11 +2,21 @@
   "packageDirectories": [
     {
       "path": "force-app",
-      "default": true
+      "package": "Job Application Tracker",
+      "versionName": "ver 1.0",
+      "versionNumber": "1.0.0.NEXT",
+      "default": true,
+      "versionDescription": "Track different developer jobs you want to apply for."
     }
   ],
   "name": "developer-kickstart-capstone-job-application-tracker",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "58.0"
+  "sourceApiVersion": "58.0",
+  "packageAliases": {
+    "jobApplicationTracker": "0Hoaj00000009RVCAY",
+    "Job Application Tracker": "0Hoak0000000BczCAE",
+    "Job Application Tracker@1.0.0-1": "04tak0000002Cl3AAE",
+    "Job Application Tracker@1.0.0-2": "04tak0000002CmfAAE"
+  }
 }

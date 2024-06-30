@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Contact__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Is this the primary contact for the job application? Can only be one primary contact at a time.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is this the primary contact for the job application? Can only be one primary contact at a time.</inlineHelpText>
+    <label>Primary Contact</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

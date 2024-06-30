@@ -1,15 +1,16 @@
 /*
 *********************************************************
 Apex Class Name    : TestDataFactory
-Created Date       : July 2024
+Created Date       : June 2024
 @description       : This test data factory can be used to simplify testing logic
+                    by moving repeated data creation here
 @author            : Steven Trumble
 *********************************************************
 */
 @isTest
 public class TestDataFactory {
 
-    //constant of Filing Statuses so can use to generate random choice when needed
+    //constant of Job_Application__c Filing Statuses so can use to generate random choice when needed
     private static final List<String> FILING_STATUSES = new List<String>{
         'Single',
         'Married Filing Jointly',
@@ -107,10 +108,7 @@ public class TestDataFactory {
 @return         : Job_Application_Contact__c
 ********************************************************
 */    
-    public static Job_Application_Contact__c createJobApplicationContact(
-        Id contactId,
-        Id jobAppId
-    ) {
+    public static Job_Application_Contact__c createJobApplicationContact(Id contactId,Id jobAppId){
         Job_Application_Contact__c jobApplicationContact = new Job_Application_Contact__c(Contact__c = contactId, Job_Application__c = jobAppId);
         
         insert jobApplicationContact;
@@ -132,7 +130,14 @@ public class TestDataFactory {
         }        
         return jobApp;
     }
-        
+ /*
+*********************************************************
+@Method Name    : createMultipleJobApplicationSalaries
+@description    : method to is used to create Job Applications with increasing salary values
+@param          : Integer numApplications - how many Job APplication records to create
+@return         : jobApps List of Job applications
+********************************************************
+*/         
     public static List<Job_Application__c> createMultipleJobApplicationSalaries(Integer numApplications) {
         List<Job_Application__c> jobApps = new List<Job_Application__c>();
         
@@ -144,12 +149,34 @@ public class TestDataFactory {
         
         return jobApps;
     }
-    
+ /*
+*********************************************************
+@Method Name    : getRandomFilingStatus
+@description    : method to is used to create Job Applications with random filing status (not provided)
+@return         : a valid Filing Status
+********************************************************
+*/     
     private static String getRandomFilingStatus() {
         Integer randomIndex = Math.mod(Math.abs((Integer)Math.floor(Math.random() * 10)), FILING_STATUSES.size());
         return FILING_STATUSES[randomIndex];
     }
-
+ /*
+*********************************************************
+@Method Name    : getRandomFilingStatus
+@description    : method to is used to create Job Applications with random filing status (not provided)
+@param          :Integer numEvents, - number of events to create
+@param          :String subject, -task subject
+@param          :String interviewType, Activity Interview_Type__c
+@param          :String interviewFormat, Activity Interview_Format__c
+@param          :Date activityDate, 
+@param          :Datetime  startDateTime, - start time of the event
+@param          :Integer durationInMinutes, - duration of the event
+@param          :Id whoId, contact/lead related to the event
+@param          :Id whatId, job application (or other non person object) related to the event
+@param          :Id ownerId - event owner
+@return         : list of Events
+********************************************************
+*/  
     public static List<Event> createEvents(
         Integer numEvents, 
         String subject, 
@@ -184,7 +211,13 @@ public class TestDataFactory {
         }
         return events;
     }
-
+   /*
+*********************************************************
+@Method Name    : testUserDataCreation
+@description    : create a user so that records can be assiged to a specific user
+@return         : a User
+********************************************************
+*/
     public static User testUserDataCreation() {
         User user;
   

@@ -4,6 +4,8 @@ Apex Class Name    : JobApplicationUtility
 Created Date       : June 2024
 @description       : This utility class handles logic needed for Job_Application__c automations
 @author            : Steven Trumble
+@param throwTestException - boolen to throw test exception to test catch block
+@param lastExceptionMessage - string to test catch block for any excpetions
 *********************************************************
 */
 
@@ -16,8 +18,6 @@ public with sharing class JobApplicationUtility {
 @author         : Steven Trumble
 @description    : method to is used to create Tasks related to Job Applications depending on the Status__c
 @param          : List of Job_Applicaiton__c records from trigger.new
-@param throwTestException - boolen to throw test exception to test catch block
-@param lastExceptionMessage - string to test catch block for any excpetions
 @return         : New Tasks
 ********************************************************
 */
@@ -107,7 +107,6 @@ public with sharing class JobApplicationUtility {
     /*
 *********************************************************
 @Method Name    : setPrimaryContact
-@author         : Steven Trumble
 @description    : set the primary contact on the job application if the primary contact is null 
                 and there is at least one related contact. Use the first contact available in the 
                 Job_Application_Contact__c related list or the first contact related to the Company_Name__c (Account).

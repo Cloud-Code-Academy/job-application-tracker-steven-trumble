@@ -1,7 +1,31 @@
+/*
+*********************************************************
+Apex Class Name    : SalaryCalculator
+Created Date       : June 2024
+@description       : This utility class handles logic needed for tax calculations on Job_Application__c based off of Salary__c
+@author            : Steven Trumble
+@param throwTestException - boolen to throw test exception to test catch block
+@param lastExceptionMessage - string to test catch block for any excpetions
+*********************************************************
+*/
+
 public with sharing class SalaryCalculator {
     @TestVisible  private static Boolean throwTestException = false;
     @TestVisible  private static String lastExceptionMessage;
 
+    /*
+*********************************************************
+@Method Name    : calculateTaxesAndTakeHomePay
+@author         : Steven Trumble
+@description    : method to is used to calculate take home pay and amount of taxes paid
+@param          : List of Job_Applicaiton__c records from trigger.new
+@return         : jobApplication.Social_Security__c                
+                jobApplication.Medicare_Withholding__c 
+                jobApplication.Federal_Income_Tax__c
+                jobApplication.Annual_Take_Home_Pay__c 
+                jobApplication.Monthly_Take_Home_Pay__c
+********************************************************
+*/
     public static void calculateTaxesAndTakeHomePay(List<Job_Application__c> jobAplications) {
         //set default constants for Social_Security_Rate__c and Medicare_Withholding_Rate__c based on 2024 figures in case not provided in record
         final Decimal  SOCIAL_SECURITY_RATE = 0.062;
@@ -57,7 +81,18 @@ public with sharing class SalaryCalculator {
             }
         }    
     }
-//different tax rates based on income https://www.nerdwallet.com/taxes/tax-calculator#How%20this%20income%20tax%20calculator%20works
+
+    /*
+*********************************************************
+@Method Name    : calculateFederalIncomeTaxSingle
+@description    : Calculate Federal Income tax for Filing Status = Single
+@param          : Decimal salary
+@return         : Decimal federalIncomeTax
+
+Note: different tax rates based on income https://www.nerdwallet.com/taxes/tax-calculator#How%20this%20income%20tax%20calculator%20works
+********************************************************
+*/
+
     private static Decimal calculateFederalIncomeTaxSingle(Decimal salary){
         try{
             Decimal federalIncomeTax = 0;
@@ -84,8 +119,14 @@ public with sharing class SalaryCalculator {
             return 0;
         }
     }
-
-
+    /*
+*********************************************************
+@Method Name    : calculateFederalIncomeTaxSingle
+@description    : Calculate Federal Income tax for Filing Status = Married Filing Jointly
+@param          : Decimal salary
+@return         : Decimal federalIncomeTax
+********************************************************
+*/
     private static Decimal calculateFederalIncomeTaxMarriedJointly(Decimal salary){
         try{
             Decimal federalIncomeTax = 0;
@@ -112,7 +153,14 @@ public with sharing class SalaryCalculator {
             return 0;
         }
     }
-
+    /*
+*********************************************************
+@Method Name    : calculateFederalIncomeTaxSingle
+@description    : Calculate Federal Income tax for Filing Status = Married Filing Seperately
+@param          : Decimal salary
+@return         : Decimal federalIncomeTax
+********************************************************
+*/
     private static Decimal calculateFederalIncomeTaxMarriedSeparately(Decimal salary){
         try{
             Decimal federalIncomeTax = 0;
@@ -139,7 +187,14 @@ public with sharing class SalaryCalculator {
         return 0;
         }
     }
-
+    /*
+*********************************************************
+@Method Name    : calculateFederalIncomeTaxSingle
+@description    : Calculate Federal Income tax for Filing Status = Head of Household
+@param          : Decimal salary
+@return         : Decimal federalIncomeTax
+********************************************************
+*/
     private static Decimal calculateFederalIncomeTaxHeadOfHousehold(Decimal salary){
         try{
         Decimal federalIncomeTax = 0;
@@ -166,6 +221,12 @@ public with sharing class SalaryCalculator {
         return 0;
         }
     }
-
+        /*
+*********************************************************
+Inner Class Name   : TestException
+Created Date       : June 2024
+@description       : inner exception class so can throw exception in testing
+*********************************************************
+*/
     public class TestException extends Exception{}
 }

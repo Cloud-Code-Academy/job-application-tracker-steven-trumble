@@ -11,7 +11,6 @@ private class EventInterviewReminderSchedule_Test {
 /*
 *********************************************************
 @Method Name    : setupTestData
-@author         : Steven Trumble
 @description    : method to is used to create the default User, Job_Application__c and Contact records that can be used for all unit tests
 @return         : New User, Job Application, Contact
 ********************************************************

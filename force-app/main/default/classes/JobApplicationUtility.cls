@@ -1,7 +1,7 @@
 /*
 *********************************************************
 Apex Class Name    : JobApplicationUtility
-Created Date       : July 2024
+Created Date       : June 2024
 @description       : This utility class handles logic needed for Job_Application__c automations
 @author            : Steven Trumble
 *********************************************************
@@ -88,7 +88,12 @@ public with sharing class JobApplicationUtility {
             }
        }
     }
-    //helper method to return tasks that can be inserted
+    /*
+*********************************************************
+@Method Name    : createTask
+@description    : helper method to return tasks that can be inserted
+********************************************************
+*/
     private static Task createTask(Id jobAppId, String subject, Integer daysUntilDue){
         Task newTask = new Task();
         newTask.WhatId = jobAppId;
@@ -98,14 +103,15 @@ public with sharing class JobApplicationUtility {
         newTask.ActivityDate = system.today()+daysUntilDue;
         return newTask;
     }
+
     /*
 *********************************************************
 @Method Name    : setPrimaryContact
 @author         : Steven Trumble
 @description    : set the primary contact on the job application if the primary contact is null 
                 and there is at least one related contact. Use the first contact available in the 
-                contact-related list or the first contact related to the Company(Account).
-@param  List<Job_Application__c> jobApplications: List of Job_Applicaiton__c records from Trigger.new
+                Job_Application_Contact__c related list or the first contact related to the Company_Name__c (Account).
+@param  List<Job_Application__c> jobApplications: List of Job_Application__c records from Trigger.new
 @return         : contactId
 ********************************************************
 */
@@ -188,5 +194,12 @@ public with sharing class JobApplicationUtility {
             System.debug(LoggingLevel.ERROR, 'Unexpected Exception in setPrimaryContact: ' + lastExceptionMessage);
         }
     }
+        /*
+*********************************************************
+Inner Class Name   : TestException
+Created Date       : June 2024
+@description       : inner exception class so can throw exception in testing
+*********************************************************
+*/
     public class TestException extends Exception{}
 }

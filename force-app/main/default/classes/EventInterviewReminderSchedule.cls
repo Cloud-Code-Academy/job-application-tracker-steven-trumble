@@ -1,21 +1,22 @@
-/**
- * @class Event_Interview_Reminder_Schedule
+/*
+*********************************************************
+Apex Class Name    : EventInterviewReminderSchedule
+Created Date       : June 2024
+@author            : Steven Trumble
  * @description Scheduled Apex class to send email reminders for upcoming interviews.
- *              This class queries for interviews scheduled for the next day and sends
+ *              This class queries for interviews (type of Event) scheduled for the next day and sends
  *              reminder emails to the event owners.
- *
  * Input:
  * - When executed as a scheduled job, it takes no direct input.
  * - It queries Event objects for interviews scheduled for the next day.
- *
  * Output:
  * - Sends email reminders to event owners for each interview scheduled for the next day.
  * - Logs debug information about the execution process.
  * - Sends an error email if exceptions occur during execution.
- *
  * Usage:
  * To schedule this job to run daily at 9am execute anonymous apex:
- * System.schedule('EventInterviewReminderSchedule', '0 0 9 * * ?', new EventInterviewReminderSchedule());
+        System.schedule('EventInterviewReminderSchedule', '0 0 9 * * ?', new EventInterviewReminderSchedule());
+*********************************************************
  */
 
 public with sharing class EventInterviewReminderSchedule implements Schedulable{
@@ -48,6 +49,7 @@ public with sharing class EventInterviewReminderSchedule implements Schedulable{
     }
     
     /**
+     * @Method Name: emailInterviews
      * @description Prepares and sends email reminders for the given list of interviews.
      * @param interviewsTomorrow List of Event objects representing tomorrow's interviews
      */
@@ -111,7 +113,12 @@ public with sharing class EventInterviewReminderSchedule implements Schedulable{
             System.debug('No email messages to send');
         }
     }
-    
-    //inner exception class for testing
+    /*
+*********************************************************
+Inner Class Name   : TestException
+Created Date       : June 2024
+@description       : inner exception class so can throw exception in testing
+*********************************************************
+*/
     public class TestException extends Exception{}
 }

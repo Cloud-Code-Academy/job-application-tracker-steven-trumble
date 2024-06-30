@@ -1,8 +1,8 @@
 /*
 *********************************************************
 Apex Class Name    : JobApplicationTriggerHandler
-Created Date       : July 2024
-@description       : This trigger handler calls various methods in JobApplicationUtility and SalaryCalculator based on the running context
+Created Date       : June 2024
+@description       : This trigger handler calls various methods in JobApplicationUtility and SalaryCalculator based on the running context.
 @author            : Steven Trumble
 *********************************************************
 */
@@ -43,6 +43,15 @@ public with sharing class JobApplicationTriggerHandler extends TriggerHandler {
         }
     }
 
+    /*
+*********************************************************
+@Method Name    : getJobAppsWithSalary
+@author         : Steven Trumble
+@description    : method to is used to find which Job Applications should enter the SalaryCalculator.calculateTaxesAndTakeHomePay method.
+@param          : List of Job_Application__c records from trigger.new
+@return         : List of Job_Application__c records that have a value in Salary__c
+********************************************************
+*/
     private List<Job_Application__c> getJobAppsWithSalary(List<Job_Application__c> jobApps) {
         List<Job_Application__c> jobAppsWithSalary = new List<Job_Application__c>();
         for (Job_Application__c jobApp : jobApps) {
@@ -52,7 +61,16 @@ public with sharing class JobApplicationTriggerHandler extends TriggerHandler {
         }
         return jobAppsWithSalary;
     }
-
+    /*
+*********************************************************
+@Method Name    : getJobAppsWithChangedStatus
+@author         : Steven Trumble
+@description    : method to is used to find which Job Applications should enter the SalaryCalculator.calculateTaxesAndTakeHomePay method.
+@param          : List<SObject> newSObjects - Trigger.new
+@param          : Map<Id, SObject> oldSObjectsMap - Trigger.oldMap
+@return         : List of Job_Application__c records that have a changed Status__c
+********************************************************
+*/
     private List<Job_Application__c> getJobAppsWithChangedStatus(List<SObject> newSObjects, Map<Id, SObject> oldSObjectsMap) {
         List<Job_Application__c> jobAppsChangedStatus = new List<Job_Application__c>();
         for (SObject newSObj : newSObjects) {

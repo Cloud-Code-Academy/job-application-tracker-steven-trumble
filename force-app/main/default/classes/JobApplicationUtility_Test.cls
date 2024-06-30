@@ -1,13 +1,18 @@
 /*
-This class contains unit tests for validating behvaioiur of logic in JobApplicationUtility class
+*********************************************************
+Apex Class Name    : JobApplicationUtility_Test
+Created Date       : June 2024
+@description       : This test class contains unit tests for the JobApplicationUtility class
+@author            : Steven Trumble
+*********************************************************
 */
 @IsTest
 private class JobApplicationUtility_Test {
     /*
 *********************************************************
+@Method Name      : createJobApplicationTasks_JobApplicationNullStatus_OneTask
 @Method Tested    : createJobApplicationTasks
-@author           : Steven Trumble
-@description      : test various scenarios that could occur for createJobApplicationTasks()
+@description      : Job Application with no Status provided, expecting one task
 ********************************************************
 */
     @isTest
@@ -32,6 +37,13 @@ private class JobApplicationUtility_Test {
         System.assertEquals(1, taskSubject,'Expected to find a related task with subject of \' Select a Status for this Job Application \' ' );
     }
 
+/*
+*********************************************************
+@Method Name      : createJobApplicationTasks_JobApplicationSavedStatus_ThreeTasks
+@Method Tested    : createJobApplicationTasks
+@description      : Job Application with Saved Status provided, expecting three tasks
+********************************************************
+*/
     @isTest
     static void createJobApplicationTasks_JobApplicationSavedStatus_ThreeTasks(){
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,'Saved');    
@@ -54,7 +66,13 @@ private class JobApplicationUtility_Test {
                                 AND Subject = 'Check if the job description aligns with your interests and values'];
         System.assertEquals(1, taskSubject,'Expected to find a related task with subject of \' Check if the job description aligns with your interests and values \' ' );
     }
-
+    /*
+*********************************************************
+@Method Name      : createJobApplicationTasks_JobApplicationApplyingStatus_FiveTasks
+@Method Tested    : createJobApplicationTasks
+@description      : Job Application with Applying Status provided, expecting five tasks
+********************************************************
+*/
     @isTest
     static void createJobApplicationTasks_JobApplicationApplyingStatus_FiveTasks(){
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,'Applying');    
@@ -77,7 +95,13 @@ private class JobApplicationUtility_Test {
                                 AND Subject = 'Find and research someone who works at the company and add them as a contact'];
         System.assertEquals(1, taskSubject,'Expected to find a related task with subject of \' Find and research someone who works at the company and add them as a contact \' ' );
     }
-
+  /*
+*********************************************************
+@Method Name      : createJobApplicationTasks_JobApplicationAppliedStatus_FourTasks
+@Method Tested    : createJobApplicationTasks
+@description      : Job Application with Applied Status, expecting four tasks
+********************************************************
+*/
     @isTest
     static void createJobApplicationTasks_JobApplicationAppliedStatus_FourTasks(){
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,'Applied');    
@@ -100,7 +124,13 @@ private class JobApplicationUtility_Test {
                                 AND Subject = 'Follow up on your application via email weekly'];
         System.assertEquals(1, taskSubject,'Expected to find a related task with subject of \' Follow up on your application via email weekly \' ' );
     }
-    
+  /*
+*********************************************************
+@Method Name      : createJobApplicationTasks_JobApplicationInterviewingStatus_FiveTasks
+@Method Tested    : createJobApplicationTasks
+@description      : Job Application with Interviewing Status, expecting five tasks
+********************************************************
+*/    
     @isTest
     static void createJobApplicationTasks_JobApplicationInterviewingStatus_FiveTasks(){
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,'Interviewing');
@@ -123,7 +153,13 @@ private class JobApplicationUtility_Test {
                                 AND Subject = 'Practice answering behavioral interview questions'];
         System.assertEquals(1, taskSubject,'Expected to find a related task with subject of \'Practice answering behavioral interview questions\' ' );
     }
-
+ /*
+*********************************************************
+@Method Name      : createJobApplicationTasks_JobApplicationNegotiatingStatus_ThreeTasks
+@Method Tested    : createJobApplicationTasks
+@description      : Job Application with Negotiating Status, expecting three tasks
+********************************************************
+*/  
     @isTest
     static void createJobApplicationTasks_JobApplicationNegotiatingStatus_ThreeTasks(){
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,'Negotiating');
@@ -146,7 +182,13 @@ private class JobApplicationUtility_Test {
                                 AND Subject = 'Evaluate your offer and decline or accept'];
         System.assertEquals(1, taskSubject,'Expected to find a related task with subject of \'Evaluate your offer and decline or accept\' ' );
     }
-   
+ /*
+*********************************************************
+@Method Name      : createJobApplicationTasks_JobApplicationAcceptedStatus_ThreeTasks
+@Method Tested    : createJobApplicationTasks
+@description      : Job Application with Accepted Status, expecting three tasks
+********************************************************
+*/    
     @isTest
     static void createJobApplicationTasks_JobApplicationAcceptedStatus_ThreeTasks(){
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,'Accepted');
@@ -169,7 +211,13 @@ private class JobApplicationUtility_Test {
                                 AND Subject = 'Plan your resignation if applicable'];
         System.assertEquals(1, taskSubject,'Expected to find a related task with subject of \'Plan your resignation if applicable\' ' );
     }
-    
+   /*
+*********************************************************
+@Method Name      : createJobApplicationTasks_JobApplicationClosedStatus_TwoTasks
+@Method Tested    : createJobApplicationTasks
+@description      : Job Application with Closed Status, expecting two tasks
+********************************************************
+*/    
     @isTest
     static void createJobApplicationTasks_JobApplicationClosedStatus_TwoTasks(){
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,'Closed');
@@ -192,7 +240,13 @@ private class JobApplicationUtility_Test {
                                 AND Subject = 'Review your notes and reflect on areas of improvement'];
         System.assertEquals(1, taskSubject,'Expected to find a related task with subject of \'Review your notes and reflect on areas of improvement\' ' );
     }
-    
+   /*
+*********************************************************
+@Method Name      : createJobApplicationTasks_JobApplicationBulk_BulkTasks
+@Method Tested    : createJobApplicationTasks
+@description      : Creating 300 Job Applications with a status that should return 3 tasks each. Expecting 900 tasks.
+********************************************************
+*/  
     @isTest
     static void createJobApplicationTasks_JobApplicationBulk_BulkTasks(){
         final Integer JOB_APPLICATIONS_TO_CREATE = 300;
@@ -212,7 +266,13 @@ private class JobApplicationUtility_Test {
         
         System.assertEquals(JOB_APPLICATIONS_TO_CREATE * EXPECTED_TASKS_PER_JOB_APPLICATION , taskCount, 'Expected 900 tasks to be created');
     }
-
+   /*
+*********************************************************
+@Method Name      : createJobApplicationTasks_throwException_NoTask
+@Method Tested    : createJobApplicationTasks
+@description      : Testing exception handling capability
+********************************************************
+*/  
     @isTest
     static void createJobApplicationTasks_throwException_NoTask(){
         List<Job_Application__c> jobApplications = TestDataFactory.createJobApplicationsWithStatus(1,null);
@@ -234,10 +294,11 @@ private class JobApplicationUtility_Test {
 
     /*
 *********************************************************
+@Method Name      : setPrimaryContact_JobApplicationPrimaryContactNullJACExists_PrimaryContactUpdated
 @Method Tested    : setPrimaryContact
-@author           : Steven Trumble
-@description      : test various scenarios that could occur for setPrimaryContact()
-                    JAC = Job_Application_Contact__c
+@Acronym          : JAC = Job_Application_Contact__c
+@description      : Job_Application__c has no Primary_Contact__c, but there is a Job_Application_Contact__c. 
+                    Expect JAC to become Primary_Contact__c
 ********************************************************
 */
     
@@ -271,7 +332,15 @@ private class JobApplicationUtility_Test {
         System.assertNotEquals(null, jobApp.Primary_Contact__c, 'Primary contact should not be null');
         TriggerHandler.clearAllBypasses();
     }
-
+    /*
+*********************************************************
+@Method Name      : setPrimaryContact_PrimaryContactNullNoJACCompanyContactExists_PrimaryContactIsAccountContact
+@Method Tested    : setPrimaryContact
+@Acronym          : JAC = Job_Application_Contact__c
+@description      : Job_Application__c has no Primary_Contact__c, but there is an Account in Company_Name__c with a Contact. 
+                    Expect Account's Contact to become Primary_Contact__c
+********************************************************
+*/
     @isTest
     static void setPrimaryContact_PrimaryContactNullNoJACCompanyContactExists_PrimaryContactIsAccountContact() {
         TriggerHandler.bypass('JobApplicationTriggerHandler');
@@ -309,7 +378,16 @@ private class JobApplicationUtility_Test {
         System.assertEquals(companyContacts[0].Id, jobApp.Primary_Contact__c, 'Primary contact should be set from Company_Name__c contacts');
         TriggerHandler.clearAllBypasses();
     }
-
+    /*
+*********************************************************
+@Method Name      : setPrimaryContact_PrimaryContactNullNoJACCompanyContactExists_PrimaryContactIsAccountContact
+@Method Tested    : setPrimaryContact
+@Acronym          : JAC = Job_Application_Contact__c
+@description      : Job_Application__c has no Primary_Contact__c, there is an Account in Company_Name__c without a Contact. 
+                    No JAC record.
+                    Expect Primary_Contact__c to remain null.
+********************************************************
+*/
     @isTest
     static void setPrimaryContact_PrimaryContactNullNoJACNoCompanyContacts_RemainNull() {
         TriggerHandler.bypass('JobApplicationTriggerHandler');
@@ -334,7 +412,16 @@ private class JobApplicationUtility_Test {
         System.assertEquals(null, jobApp.Primary_Contact__c, 'Primary contact should remain null when no contacts are associated');
         TriggerHandler.clearAllBypasses();
     }
-
+    /*
+*********************************************************
+@Method Name      : setPrimaryContact_PrimaryContactNullNoJACCompanyNull_RemainNull
+@Method Tested    : setPrimaryContact
+@Acronym          : JAC = Job_Application_Contact__c
+@description      : Job_Application__c has no Primary_Contact__c, there is no Account in Company_Name__c. 
+                    No JAC record.
+                    Expect Primary_Contact__c to remain null.
+********************************************************
+*/
     @isTest
     static void setPrimaryContact_PrimaryContactNullNoJACCompanyNull_RemainNull() {
         TriggerHandler.bypass('JobApplicationTriggerHandler');
@@ -354,9 +441,17 @@ private class JobApplicationUtility_Test {
         System.assertEquals(null, jobApp.Primary_Contact__c, 'Primary contact should remain null when Company_Name__c is null and no existing Job_Application_Contact__c records');
         TriggerHandler.clearAllBypasses();
     }
-
+    /*
+*********************************************************
+@Method Name      : setPrimaryContact_BulkSetPrimaryContact_JobApplicationsHavePrimaryContact
+@Method Tested    : setPrimaryContact
+@Acronym          : JAC = Job_Application_Contact__c
+@description      : Use a list with multiple Job_Application_records and multiple contacts.
+                    Expect Primary_Contact__c to be assigned for each Job_Application__c
+********************************************************
+*/
     @isTest
-    static void testBulkSetPrimaryContact() {
+    static void setPrimaryContact_BulkSetPrimaryContact_JobApplicationsHavePrimaryContact() {
         TriggerHandler.bypass('JobApplicationTriggerHandler');
         // Create a list of job applications with different scenarios
         List<Job_Application__c> jobApps = new List<Job_Application__c>();
@@ -412,7 +507,14 @@ private class JobApplicationUtility_Test {
         System.assertEquals(null, jobAppMap.get(jobApp4.Id).Primary_Contact__c, 'Scenario 4: Primary contact should remain null when Company_Name__c is null and no Job_Application_Contact__c records');
         TriggerHandler.clearAllBypasses();
     }
-    
+
+    /*
+*********************************************************
+@Method Name    : setPrimaryContact_throwException
+@Method Tested  : setPrimaryContact
+@description    : Test exception handling
+********************************************************
+*/
     @isTest
     static void setPrimaryContact_throwException(){
         JobApplicationUtility.throwTestException = true;

@@ -5,10 +5,6 @@
         <name>CustomApplication</name>
     </types>
     <types>
-        <members>Event</members>
-        <name>CustomObject</name>
-    </types>
-    <types>
         <members>Event-Event Layout</members>
         <name>Layout</name>
     </types>

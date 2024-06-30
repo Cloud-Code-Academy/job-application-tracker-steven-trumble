@@ -1,6 +1,22 @@
+/*
+*********************************************************
+Apex Class Name    : SalaryCalculator_Test
+Created Date       : June 2024
+@description       : This test class contains unit tests for the SalaryCalculator class
+@author            : Steven Trumble
+*********************************************************
+*/
 @isTest
 private class SalaryCalculator_Test {
+/*
+*********************************************************
+@Method Name    : calculateTaxesAndTakeHomePay_singleFiler_correctCalculations1stBracket
+@description    : Create Job Application for Single Filer with Salary in 1st tax bracket
 
+Note: method repeated wtih tweaks for salary in 1st-7th tax brackets for single filer. 
+New comment box not until change in filing status
+********************************************************
+*/
     @isTest
     static void calculateTaxesAndTakeHomePay_singleFiler_correctCalculations1stBracket() {
         Job_Application__c jobApp = TestDataFactory.createJobApplicationSalary(8000, 'Single');
@@ -133,7 +149,15 @@ private class SalaryCalculator_Test {
         System.assertEquals(237832,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(454792,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
     }
+/*
+*********************************************************
+@Method Name    : calculateTaxesAndTakeHomePay_marriedFilingJointly_correctCalculations1stBracket
+@description    : Create Job Application for Married Filing Jointly Filing Status with Salary in 1st tax bracket
 
+Note: method repeated wtih tweaks for salary in various tax brackets for Married Filing Jointly. 
+New comment box not until change in filing status
+********************************************************
+*/
     @isTest
     static void calculateTaxesAndTakeHomePay_marriedFilingJointly_correctCalculations1stBracket() {
         Job_Application__c jobApp = TestDataFactory.createJobApplicationSalary(20000, 'Married Filing Jointly');
@@ -207,7 +231,15 @@ private class SalaryCalculator_Test {
         System.assertEquals(188914,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(457536,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
     }
+/*
+*********************************************************
+@Method Name    : calculateTaxesAndTakeHomePay_marriedFilingSeparately_correctCalculations1stBracket
+@description    : Create Job Application for Married Filing Separately Filing Status with Salary in 1st tax bracket
 
+Note: method repeated wtih tweaks for salary in various tax brackets for Married Filing Separately. 
+New comment box not until change in filing status
+********************************************************
+*/
     @isTest
     static void calculateTaxesAndTakeHomePay_marriedFilingSeparately_correctCalculations1stBracket() {
         Job_Application__c jobApp = TestDataFactory.createJobApplicationSalary(6000, 'Married Filing Separately');
@@ -283,7 +315,15 @@ private class SalaryCalculator_Test {
         System.assertEquals(93420,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(227034,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
     }
+/*
+*********************************************************
+@Method Name    : calculateTaxesAndTakeHomePay_marriedFilingSeparately_correctCalculations1stBracket
+@description    : Create Job Application for Head of Household Filing Status with Salary in 1st tax bracket
 
+Note: method repeated wtih tweaks for salary in various tax brackets for Head of Household. 
+New comment box not until change in filing status
+********************************************************
+*/
     @isTest
     static void calculateTaxesAndTakeHomePay_headOfHousehold_correctCalculations2ndBracket() {
         Job_Application__c jobApp = TestDataFactory.createJobApplicationSalary(16000, 'Head of Household');
@@ -340,7 +380,12 @@ private class SalaryCalculator_Test {
         System.assertEquals(58388,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
         System.assertEquals(172486,  jobApp.Annual_Take_Home_Pay__c.round(), 'Annual Take-Home Pay calculation is incorrect');
     }
-
+/*
+*********************************************************
+@Method Name    : calculateTaxesAndTakeHomePay_customRates_correctCalculations
+@description    : Testing calculations still correct when using custom Social Security and Medicare Withholding rates.
+********************************************************
+*/
     @isTest
     static void calculateTaxesAndTakeHomePay_customRates_correctCalculations() {
         Job_Application__c jobApp = TestDataFactory.createJobApplicationSalary(100000, 'Single');
@@ -360,13 +405,18 @@ private class SalaryCalculator_Test {
         System.assertEquals(17400,  jobApp.Federal_Income_Tax__c.round(), 'Federal Income Tax calculation is incorrect');
 
     }
-
+/*
+*********************************************************
+@Method Name    : calculateTaxesAndTakeHomePay_bulkCalculation_allRecordsProcessed
+@description    : Testing bulk handling of records with different salaries. Expect all calculations correct.
+********************************************************
+*/
     @isTest
     static void calculateTaxesAndTakeHomePay_bulkCalculation_allRecordsProcessed() {
         List<Job_Application__c> jobApps = TestDataFactory.createMultipleJobApplicationSalaries(10);
         
         Test.startTest();
-        SalaryCalculator.calculateTaxesAndTakeHomePay(jobApps);
+            SalaryCalculator.calculateTaxesAndTakeHomePay(jobApps);
         Test.stopTest();
         
         // Assert the results for each job application
@@ -400,7 +450,12 @@ private class SalaryCalculator_Test {
         }
     }
 
-
+/*
+*********************************************************
+@Method Name    : calculateTaxesAndTakeHomePay_nullSalary_noCalculationsPerformed
+@description    : Testing null handling for salary. Expect no calculations performed
+********************************************************
+*/
     @isTest
     static void calculateTaxesAndTakeHomePay_nullSalary_noCalculationsPerformed() {
         // Create a job application with null salary
@@ -410,7 +465,7 @@ private class SalaryCalculator_Test {
         );
         
         Test.startTest();
-        SalaryCalculator.calculateTaxesAndTakeHomePay(new List<Job_Application__c>{jobApp});
+            SalaryCalculator.calculateTaxesAndTakeHomePay(new List<Job_Application__c>{jobApp});
         Test.stopTest();
         
         // Assert that no calculations were performed
@@ -420,7 +475,12 @@ private class SalaryCalculator_Test {
         System.assertEquals(null, jobApp.Annual_Take_Home_Pay__c, 'Annual Take Home Pay should be null for null salary');
         System.assertEquals(null, jobApp.Monthly_Take_Home_Pay__c, 'Monthly Take Home Pay should be null for null salary');
     }
-
+/*
+*********************************************************
+@Method Name    : calculateTaxesAndTakeHomePay_throwException_Caught
+@description    : Testing exception handling
+********************************************************
+*/
     @isTest 
     static void calculateTaxesAndTakeHomePay_throwException_Caught(){
         SalaryCalculator.throwTestException = true;

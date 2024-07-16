@@ -141,29 +141,28 @@
         <type>Default</type>
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
-    <compactLayoutAssignment>Job_Application_Compact_Layout</compactLayoutAssignment>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>Store and manage individual job applications.
-It needs to associate with contacts, track scheduled interviews, maintain notes, manage tasks, and provide functionality to send emails directly from the record.</description>
+    <description>Junction object between Job_Application__c and Contact. 
+Allows ability to associate multiple contacts with a single job application. This feature aids in keeping track of pivotal individuals associated with the company, such as hiring managers, recruiters, and other relevant employees. It&apos;s a crucia</description>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
-    <enableHistory>true</enableHistory>
+    <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
-    <label>Job Application</label>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <label>Job Application Contact</label>
     <nameField>
-        <displayFormat>JA-{00}</displayFormat>
-        <label>Job Application Name</label>
-        <trackHistory>false</trackHistory>
+        <displayFormat>JAC-{000}</displayFormat>
+        <label>Job Application Contact Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Job Applications</pluralLabel>
+    <pluralLabel>Job Application Contacts</pluralLabel>
     <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

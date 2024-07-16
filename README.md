@@ -35,3 +35,10 @@ Key Recommendations 📝
 - [Salesforce Extensions for Visual Studio Code](https://developer.salesforce.com/tools/vscode/)
 
 Remember, the coding journey is filled with exploration, mistakes, learning, and growth. Enjoy this process, and here's wishing you success in your Salesforce journey with Cloud Code Academy! 🌟
+
+############################################################################
+
+## Entity Relationship Diagram
+https://drive.google.com/file/d/1BALU4wGIzsQdnV-MK6iMzsMJRaVP7HYy/view?usp=sharing
+Basic ERD showing objects involved and how they are related. Does not include fields on each object.
+![Job Application App ERD](<Job Application Tracker ERD.drawio.png>)
